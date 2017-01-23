@@ -31,7 +31,6 @@ def generate_consensus(aligned_fn):
                 lines_to_process.append(line)
         return SNPs, output_lines
 
-
 def process_lines(genome_lines):
     """
 
@@ -80,7 +79,7 @@ def consensus(ref, reads):
             # Spaces and dots (representing the distance between paired ends) do not count as DNA bases
         for base in read_bases:
             base_count[base] += 1
-        consensus_base = max(base_count.iterkeys(), key=(lambda key: base_count[key]))
+        consensus_base = max(base_count.keys(), key=(lambda key: base_count[key]))
             # The above line chooses (a) key with maximum value in the read_bases dictionary.
         consensus_string += consensus_base
     return consensus_string
@@ -89,7 +88,6 @@ def consensus(ref, reads):
 def diff(s1, s2):
     chars = [' ' if s1[i] == s2[i] else '*' for i in range(len(s1))]
     return ''.join(chars)
-
 
 def snp_calls(ref_string, consensus_string, start_index):
     """
@@ -109,10 +107,10 @@ if __name__ == "__main__":
     data_folder = 'hw1_W_2'
     input_folder = join('../data', data_folder)
     f_base = '{}_chr_1'.format(data_folder)
-    input_fn = join(input_folder, 'aligned_{}.txt'.format(f_base))
+    input_fn = join(input_folder, 'aligned___{}.txt'.format(f_base))
     snps, lines = generate_consensus(input_fn)
-    output_fn = join(input_folder, 'snps_{}.txt'.format(f_base))
-    zip_fn = join(input_folder, 'snps_{}.zip'.format(f_base))
+    output_fn = join(input_folder, 'snps___{}.txt'.format(f_base))
+    zip_fn = join(input_folder, 'snps___{}.zip'.format(f_base))
     with open(output_fn, 'w') as output_file:
         header = '>{}\n>{}\n'.format(f_base, 'SNP')
         output_file.write(header)
@@ -126,6 +124,6 @@ if __name__ == "__main__":
     with zipfile.ZipFile(zip_fn, 'w') as myzip:
         myzip.write(output_fn)
 
-    output_fn2 = join(input_folder, 'consensus_{}.txt'.format(f_base))
+    output_fn2 = join(input_folder, 'consensus___{}.txt'.format(f_base))
     output_file2 = open(output_fn2, 'w')
     output_file2.write('\n'.join(lines))
