@@ -79,7 +79,7 @@ def trivial_algorithm(paired_end_reads, ref):
 
 
 if __name__ == "__main__":
-    data_folder = 'practice_W_1'
+    data_folder = 'hw1_W_2'
     input_folder = join('../data/', data_folder)
     f_base = '{}_chr_1'.format(data_folder)
     reads_fn = join(input_folder, 'reads_{}.txt'.format(f_base))
@@ -97,6 +97,6 @@ if __name__ == "__main__":
     print (alignments)
     print (reads)
     output_str = pretty_print_aligned_reads_with_ref(reads, alignments, reference)
-    output_fn = join(input_folder, 'aligned___{}.txt'.format(f_base))
+    output_fn = join(input_folder, 'aligned_{}.txt'.format(f_base))
     with(open(output_fn, 'w')) as output_file:
         output_file.write(output_str)
