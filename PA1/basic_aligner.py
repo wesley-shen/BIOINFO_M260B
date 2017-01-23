@@ -35,9 +35,9 @@ def trivial_algorithm(paired_end_reads, ref):
         output_read_pair = []
         if count % 10 == 0:
             time_passed = (time.clock()-start)/60
-            print '{} reads aligned'.format(count), 'in {:.3} minutes'.format(time_passed)
+            print ('{} reads aligned'.format(count), 'in {:.3} minutes'.format(time_passed))
             remaining_time = time_passed/count*(len(paired_end_reads)-count)
-            print 'Approximately {:.3} minutes remaining'.format(remaining_time)
+            print ('Approximately {:.3} minutes remaining'.format(remaining_time))
         for read in read_pair:
             min_mismatches = len(read) + 1
             min_mismatch_location = -1
@@ -67,8 +67,9 @@ def trivial_algorithm(paired_end_reads, ref):
                     min_mismatches = n_mismatches
                     min_mismatch_location = i
                     read = reversed_read
-            read_alignment_locations.append(min_mismatch_location)
-            output_read_pair.append(read)
+            if (min_mismatches < 3):
+                read_alignment_locations.append(min_mismatch_location)
+                output_read_pair.append(read)
             # # Note that there are some huge potential problems here.
 
         all_read_alignment_locations.append(read_alignment_locations)
@@ -92,9 +93,9 @@ if __name__ == "__main__":
     reference_fn = join(input_folder, 'ref_{}.txt'.format(f_base))
     reference = read_reference(reference_fn)
     alignments, reads = trivial_algorithm(input_reads, reference)
-    print alignments
-    print reads
+    print (alignments)
+    print (reads)
     output_str = pretty_print_aligned_reads_with_ref(reads, alignments, reference)
-    output_fn = join(input_folder, 'aligned_{}.txt'.format(f_base))
+    output_fn = join(input_folder, 'aligned___{}.txt'.format(f_base))
     with(open(output_fn, 'w')) as output_file:
         output_file.write(output_str)
