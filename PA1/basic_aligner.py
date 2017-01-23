@@ -50,6 +50,16 @@ def trivial_algorithm(paired_end_reads, ref):
             read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2:len(read)]]
             min_mismatches = oligomer_len
             min_mismatch_location = -1
+            for i in range(len(read_segs)):
+                targeted_locations = ref_dict[read_segs[i]]
+                min_mismatches = oligomer_len*2
+                min_mismatches_location = -1
+                if targeted_locations != []:                    
+                    if (i == 0):
+                        for j in targeted_locations:
+                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] for k in range(0, len(read)-oligomer_len)]
+                else:
+                    continue
             # for i in range(len(ref) - len(read)):
             #     mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
             #     n_mismatches = sum(mismatches)
