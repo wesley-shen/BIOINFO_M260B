@@ -71,6 +71,7 @@ def trivial_algorithm(paired_end_reads, ref):
                 read_alignment_locations.append(min_mismatch_location)
                 output_read_pair.append(read)
             # # Note that there are some huge potential problems here.
+            # resolved by add a new threshold
 
         all_read_alignment_locations.append(read_alignment_locations)
         output_read_pairs.append(output_read_pair)
