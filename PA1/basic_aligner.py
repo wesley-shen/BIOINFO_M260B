@@ -47,26 +47,47 @@ def trivial_algorithm(paired_end_reads, ref):
             print ('Approximately {:.3} minutes remaining'.format(remaining_time))
         for read in read_pair:
             # break the read into three segments
-            read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2:len(read)]]
+            read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2-1:len(read)]]
             min_mismatches = oligomer_len
             min_mismatch_location = -1
+            for i in range(len(read_segs)):
+                targeted_location = ref_dict[read_segs[i]]
+                min_mismatches = oligomer_len*2
+                min_mismatches_location = -1
+                if targeted_location != []:                    
+                    if (i == 0):
+                        for j in targeted_location:
+                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] else 0 for k in range(0, len(read)-oligomer_len)]
+                    elif (i == 1):
+                        for j in targeted_location:			    
+                            mismatch_1 = [1 if read[k] != ref[j-oligomer_len+k] else 0 for k in range(0, oligomer_len)]
+                            mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] else 0 for k in range(0, oligomer_len)]
+                            mismatches = mismatch_1+mismatch
+                    else:            		        
+                        for j in targeted_location:
+                            mismatches = [1 if read[k] != ref[j-oligomer_len*2+1] else 0 for k in range(0, len(read)-oligomer_len)]
+                else:
+                    continue
+                
+            reverse_read = read[::-1]
+            read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2-1:len(read)]]
             for i in range(len(read_segs)):
                 targeted_locations = ref_dict[read_segs[i]]
                 min_mismatches = oligomer_len*2
                 min_mismatches_location = -1
-                if targeted_locations != []:                    
+                if targeted_location != []:                    
                     if (i == 0):
-                        for j in targeted_locations:
-                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] for k in range(0, len(read)-oligomer_len)]
-		    elif (i == 1):
-		        for j in targeted_location:
-			    mismatch_1 = [1 if read[k] != ref[j-oligomer+k] for k in range(0, oligomer_len)]
-			    mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] for k in range(0, oligomer_len)]
-			    mismatches = mismatch_1+mismatch
-		    else:
-		        for j in targeted_location:
-			    mismatches = [1 if read[k] != ref[j-oligomer*2+1] for k in range(0, len(read)-oligomer_len)]
-		else:
+                        for j in targeted_location:
+                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] else 0 for k in range(0, len(read)-oligomer_len)]
+                    elif (i == 1):
+                        for j in targeted_location:
+                            mismatch_1 = [1 if read[k] != ref[j-oligomer_len+k] else 0 for k in range(0, oligomer_len)]
+                            mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] else 0 for k in range(0, oligomer_len)]
+                            mismatches = mismatch_1+mismatch
+                    else:
+                        for j in targeted_location:
+                            mismatches = [1 if read[k] != ref[j-oligomer_len*2+1] else 0 for k in range(0, len(read)-oligomer_len)]
+                else:
                     continue
             # for i in range(len(ref) - len(read)):
             #     mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
