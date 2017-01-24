@@ -68,7 +68,7 @@ def trivial_algorithm(paired_end_reads, ref):
                     min_mismatch_location = i
                     read = reversed_read
             
-            if (min_mismatches < 3):
+            if (min_mismatches <= 3):
                 read_alignment_locations.append(min_mismatch_location)
                 output_read_pair.append(read)
             # # Note that there are some huge potential problems here.
