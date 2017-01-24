@@ -67,14 +67,18 @@ def pretty_print_aligned_reads_with_ref(genome_oriented_reads, read_alignments, 
     alignment_indices = np.argsort(first_alignment)
     sorted_reads = np.array([aligned_reads[i] for i in alignment_indices])
     sorted_alignments = np.array([best_alignments[i] for i in alignment_indices])
-
+    
+#    print("sort_read: ", sorted_reads)
+#    print("sort_align: ", sorted_alignments)
+    
     # You don't need to worry too much about how the code block below works--its job is to make it so
     # that a read that starts printing in the third row will continue printing in the third row of the
     # next set of lines.
     active_reads = []
     output_str += '\n\n' + '-' * (line_length + 6) + '\n\n'
-    read_indices = np.array([sorted_alignments[j][0]/line_length for j in range(len(sorted_alignments))])
-
+    read_indices = np.array([sorted_alignments[j][0] // line_length for j in range(len(sorted_alignments))])
+#    print("read_indices: ", read_indices)
+    
     for i in range(len(ref) // line_length):
         next_ref = ref[i * line_length: (i + 1) * line_length]
         read_mask = (read_indices == i)
@@ -85,10 +89,11 @@ def pretty_print_aligned_reads_with_ref(genome_oriented_reads, read_alignments, 
         empty_active_read_indices = [index for index in range(len(active_reads)) if active_reads[index] == '']
         for j in range(min(len(new_reads_with_spaces), len(empty_active_read_indices))):
             active_reads[empty_active_read_indices[j]] = new_reads_with_spaces[j]
-
+            
         if len(new_reads_with_spaces) > len(empty_active_read_indices):
             active_reads += new_reads_with_spaces[len(empty_active_read_indices):]
         printed_reads = ['Read: ' + read[:line_length] for read in active_reads]
+#        print(printed_reads)
         active_reads = [read[line_length:] for read in active_reads]
         while len(active_reads) > 0:
             last_thing = active_reads.pop()

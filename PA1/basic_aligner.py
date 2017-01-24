@@ -30,7 +30,6 @@ def trivial_algorithm(paired_end_reads, ref):
     count = 0
     start = time.clock()
     for read_pair in paired_end_reads:
-        min_mismatch = 0
         count += 1
         read_alignment_locations = []
         output_read_pair = []
@@ -69,20 +68,25 @@ def trivial_algorithm(paired_end_reads, ref):
                     min_mismatch_location = i
                     read = reversed_read
             
-            min_mismatch += min_mismatches
+            if (min_mismatches > 1):
+                read_alignment_locations = []
+                output_read_pair = []                
+                break
             read_alignment_locations.append(min_mismatch_location)
             output_read_pair.append(read)
             # # Note that there are some huge potential problems here.
             # resolved by add a new threshold
-        if (min_mismatch <= 10):
-            all_read_alignment_locations.append(read_alignment_locations)
-            output_read_pairs.append(output_read_pair)
+            
+        if (len(read_alignment_locations) < 2): 
+            continue
+        all_read_alignment_locations.append(read_alignment_locations)
+        output_read_pairs.append(output_read_pair)
             
     return all_read_alignment_locations, output_read_pairs
 
 
 if __name__ == "__main__":
-    data_folder = 'hw1_W_2'
+    data_folder = 'practice_W_1'
     input_folder = join('../data/', data_folder)
     f_base = '{}_chr_1'.format(data_folder)
     reads_fn = join(input_folder, 'reads_{}.txt'.format(f_base))
@@ -100,6 +104,6 @@ if __name__ == "__main__":
     print (reads)
     
     output_str = pretty_print_aligned_reads_with_ref(reads, alignments, reference)
-    output_fn = join(input_folder, 'aligned___{}.txt'.format(f_base))
+    output_fn = join(input_folder, 'aligned__{}.txt'.format(f_base))
     with(open(output_fn, 'w')) as output_file:
         output_file.write(output_str)
