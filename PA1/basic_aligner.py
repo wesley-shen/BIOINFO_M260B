@@ -58,7 +58,15 @@ def trivial_algorithm(paired_end_reads, ref):
                     if (i == 0):
                         for j in targeted_locations:
                             mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] for k in range(0, len(read)-oligomer_len)]
-                else:
+		    elif (i == 1):
+		        for j in targeted_location:
+			    mismatch_1 = [1 if read[k] != ref[j-oligomer+k] for k in range(0, oligomer_len)]
+			    mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] for k in range(0, oligomer_len)]
+			    mismatches = mismatch_1+mismatch
+		    else:
+		        for j in targeted_location:
+			    mismatches = [1 if read[k] != ref[j-oligomer*2+1] for k in range(0, len(read)-oligomer_len)]
+		else:
                     continue
             # for i in range(len(ref) - len(read)):
             #     mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
