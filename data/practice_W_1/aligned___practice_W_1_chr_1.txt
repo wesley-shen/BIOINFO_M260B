@@ -1,0 +1,568 @@
+
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 0
+Ref:  ACCTTACCAAGTCCAACGATGATTGTCGCGCTGTCGGTAACGAGGAAAGAATCAGAATGCTAAGAGAATACCGAACCTACCAAGGCCTTGCAGTAGGTGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 100
+Ref:  CTTGGCTACAGGACCACATTGGAGAGTTCGAGGTATACCAAGCCTCACGCCAAGAGTTTCTTCGCCTAATTACAGACTATGGGGTACCTCTGTTTGTACG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 200
+Ref:  GTCACTAAGCGCCTTTCTCCAGCACTATATACATGATCTCCGTGAAGGAGGTATAGGCCCCATCGTGCCGTCGAACCGTTAACCACCTGAAAGGACGCTG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 300
+Ref:  CACGAATTGAATCCAAGCGCCATTCTCTGCACTAGGATCTGATCGTTAAGCACATCCAGTTTGCCGAAGTTCTATTGATTCGACGGATTCAAGACTGCGC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 400
+Ref:  AATCCTGGATTGGACCCGATATATTCTGCGAAGTCTTTGCATTGCCGCGGCTATCACGGCTGTGCGTGGTGTAGTTCGGAACACTTTAATGAAGCTTTAG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 500
+Ref:  TACTACTATTAAATGCGGACGGTCACTCCACCGACACAAATCAGTTACTGTAGAAACCGAGGGTTGCTCGACGTCGCGATTTACCAATCCCTCTGAGCCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 600
+Ref:  ACCTACGTACTAGTGCCATATACCGTCAGAATTCGAGGCAAACTAATAGCAGTGCGACGAGTAGGCTTCCATAACGGGATTGCCGTAGTAAGAGAACTTA
+Read: ACCTACGTACTAGTGCCATATACCGTCAGAATTCGAGGCAAACTAATAGC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 700
+Ref:  CGCCTCGATCCTGCACATAGTATCAGGACCTGTAGGTGAATAACCACACCGTGTTATCTCCCATATTTACCCTCGTCACCGGGTCATTGCCTCTGGGCCT
+Read: ............................................................CCATATTTACCCTCGTTACCGGGTCATTGCCTCTGGGCCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 800
+Ref:  AACCACGACCTCGAGATGTCGGAAATTGAACGAGCTAACGGTGGGACGGTCTTGTGACCGGATTCTCCTGACATTGTAAGATAGGTGCGGACCGAATACA
+Read: AACCTCGACC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 900
+Ref:  CCGTTTACATGGCGCGTGGATCGCGAGGTCGACGATGCAGTAGGCTGGCTCTCGCCTGCAGCGCCGCAGTGCGTTTAAGTAAAGTTATTTGTTGGGTCAG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1000
+Ref:  AAGACTAATGACCCCCCCGTGTACAAAACTGTCATCGTAAAGCCCTCCGTATATACACTTGGGTAGAGTGACCAAAGGTCCCCTTGGACGACGCGGACAC
+Read: AAGACTAATGACCCCCCCGTGTACAAAACTGTCATCGTAAAGCCCTCCGT..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1100
+Ref:  GACTGTGACACACAGCGGAACGAGCTAGGGCCCTCGATAACTGAAGGGTAATTAGCATAGATAATGGTCTAAACCATCTGCTCCGTTGTAAGCCCGAAGT
+Read: ..................................................ATTAGCATAGATAATGGTCTAAACCATCTGCTCCGTTGTAAGCCCGAAGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1200
+Ref:  GCGGCGGATAAAACATCCGAAAACAAGTAGTCTGCGTGAAAGAGCACCCCATTTTGATGGAGACAGAATGGAGGCAGACATACCTGTATTCCATCGATCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1300
+Ref:  GCCCTACGCGACTACACACTGGGATTACTTTCTGCGCGTCGGCTGAAGAGAGTGAGGACATTGATCTCCGCTGGATGGTCCCGGTCATGTAAACGCCGTT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1400
+Ref:  CTGGAGCCAATCCGTGCTCAGGGTCTTCCCGGCTCCTAGCCCAGGGGTCCGGGCCGTACCAGCAATGATACGAGTCTTAGCCACCCCTGGTCCACTCTTA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1500
+Ref:  TAACGCGTTGAAGACCCCACCCGGCCTAGGCTTGAGGCAGTCTTGAGCTTCCTGAACCTTATGCTTATAGATATACTTTTAATGATTATAGTTCGCCCCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1600
+Ref:  AGAAATATTGAAACGTTCGCGAGCCGCGTACGAGTCCTTTAGGGACGGCCCTGATCGAGAACGGTGCTTGATATCCATGTTCGTATTAGGAAAATGGTGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1700
+Ref:  AAGGAGTAAAGCCGGTAGGGGAGTCTGACCGGGATTGAGCTTGTGGGGTCAGGCAGGGTTCAAATCCTGCGGTCTTAATCCTGTGAGCACCCGCTGATTG
+Read: AAGGAGTAAAGCCGGTAGGGGAGTCTGACCGGGATTGAGCTTGTGGGGTC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1800
+Ref:  CTCCGTACATAGTCCTACTATAGCTATTAACAGCGTTTTCCTCGTTAGGTGAATCCCTCCTTTTTCTAAGCTTAACCGCACAAGTACCGCATCGCAGCGG
+Read: .....................................................TCCCTCCTTTTTCTAAGCTTAACCGCACAAGTACCGCATCGCAGCGG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 1900
+Ref:  GTAACTTTTGCAGAGAGAGCGCAACAATCTTGCGCGGCAACGAAACATGTTTCATCTGGTCTACCTGGAAACAGTCTTCTTCGTGCATTGCAAAAAAATT
+Read: GTA
+Read: GTAACTTTTGCAGAGAGAGCGCAACAACCTTGCGCGGCAACGAAACATGT..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2000
+Ref:  AGAATACCATCATGATACGAAGAGAGAGGCGGCTCATGCTGGACAACACGGGCTGGGGCTACGCAGGAGTGGAACAACCCCCCCATTGAGCGGGTCGGTA
+Read: 
+Read: ..........................................ACAACACGGGCTGGGGCTACGCAGGAGTGGAACAACCCCCCCATTGAGCG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2100
+Ref:  AGAATACCTATTTAGGCAATACCACGATGTCCTTTTGGTGCCGATATATCCCCCACACGACCGATAAGAGTCAATACTGGGTTCCCGCGTCCCGTAGCCG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2200
+Ref:  GTGCCAAGGGCTTTCAGTGACAAGGGCTACGTATACGACTCGTCACTGGGGTGCAAGCCTACAGTCTGTTCGAGTAATCCCCAGCTCATGGCGGCTCCGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2300
+Ref:  CGATGACCCATTATTTTACGGGACCTAAGGATCGAAGTCTAATTTTGAGCGGCGCAATGGGTTCGGGCGGAATGATCTCACCCGTTCAGAAAGAATGCGG
+Read: CGATGACCCATTATTTTACGGGACCTAAGGATCGAAGTCTAATTTTGAGC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2400
+Ref:  CTCTGCCATACGCTAGCTCAAACTTGTGATCGTTACTGAGGCTTGGAGGTTAGCCAGTTAGCCGTGCGTTTTTAGGGGGGGGGCCAAACACCGAGTGAGG
+Read: ........................................GCCTGGAGGTTAGCCAGTTAGCCGTGTGTTTTTAGGGGGGGGGCCAAACA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2500
+Ref:  CCTCGTTATGACTCACCATTCTCTGATTACGCGATTTCCGATATCTGATTTTCCACCCACACATAGTTCGTTCGGCTGGCCGGAGGTCCTGCTGGAACTG
+Read: CCTCGTTATGACTCACCATTCTCTGATTACGCGATTTCCGATATCTGATT..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2600
+Ref:  ATTGCGGAGCAAGCATACTGTACCGGTCGCCAGAAGAGGGACGTTCGTCGTGCAGACCTGAGCCAGTCTCCACGGAGAAGTTGCCCCTGATATGGCTACC
+Read: ........................................ACGTTCGTCGTGCAGACCTGAGCCAGTCTCCACGGAGAAGTTGCCCCTGA
+Read: ATTGCGGAGCAAGCATACTGTACCGGTCGCCAGAAGAGGGACGTTCGTCG..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2700
+Ref:  GAGTGCGAGACTAACCTCTAATATTGCAACGTCTAAACACACCGGTGAATACAGCGGCGTACACTCTTTAAGTGCCTCCGCTGTGAGTTCTCCCCAAGTC
+Read: GAGTGCGAGACTAACCTCTAATATTGCAACGTCTAAACACACCGGTGAAT..................................................
+Read: ............................................................AGACTCTTTAAGTGCCTCCGCTGTGAGTTCTCCCCAAGTC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2800
+Ref:  CCCGACACGTAACACTCATAAAACTACTAACCAAATTTTTGGCGAATTATTCGGGCTCTAGGTCTCCTGACCAACCACGCCATGCTATAGGAGGGCCTTA
+Read: ..............................................TTATTCGGGCTCTATGTCTCCTGACCAACCACGCCATGCTATAGGAGGGC
+Read: CCCGAGACGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 2900
+Ref:  CGGGGACGAATGGGGAGACCAAACTTCTATGTTCGAGAGTACCGATATATCTCATTAAGAGCCGAGCAGCTGTCGCTGCATAAAGACCCCAATATTTCCA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3000
+Ref:  CACGTAGTCTAACTTGCACGGAGGACGGTGTTTCGCACCAGTAGTCTAAAGGCCCTTCATTAAATCTTTCTACCGAGAATCTATCATTATCAGTGGGGAA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3100
+Ref:  TTCACCTAATAACTGAACGGCAATGGAAGGCGCTTCCGGTTACAAAGTGGGCCTGTCCCCATGACGCACGACGATGAATCCCCTGGCAAGTTTTTCCCTA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3200
+Ref:  AGGCGTAGAATGTTTCCGAACTCGTCTATCCGGACGCTTCGGCACACCTGCTTAACAGAACGAGTGTAACCTTCATTAGTCGCAGGGTGGAAAAAGTGTT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3300
+Ref:  CCAAGAGCTATGACTAGAAGTTGACTAACGTACGCCAAATATGCTTGGTAAAGCGGTTCAAATACCGTAGGGGGCCGAGGTCGCCCATTACTGTTTTCCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3400
+Ref:  TCGAACAAATAATGCTCCGTCTCGTAACGAGCTGTGTGTATCACTATGAGACAGCTACTACGTTAGACCTCTTAGCATTACAGGTTCCGATGAAGCCGTT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3500
+Ref:  GTCGGGGCCTATCGCATCTTTCGCTGATCGCGGTCTTGAATGCAGTAGGCAGACTTATTCCACACTGATGCCAATACGGAGAGACGCATGACCCGATTGG
+Read: GTCGGCGCCTATCGCATCTTTCGCTGATCGCGGTCTTGAATGCAGTAGGC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3600
+Ref:  TAGCATAGCAATATCGCTTATCGATTCGAAGAGGAAAAGTCACTTGCAGGGACCGATTCTGAGCCGATTCCAGAAACATGCGCACACTTCCGCGGTGTCG
+Read: .......................................................ATTCTGAGCCGATTCCAGAAACATGCGCACACTTCCGCGGTGTCG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3700
+Ref:  TTTATTGGTCACACGGAAGGCAGGTGGGGGGGGGAATCGAGAACCTTGAACAAGCGATCTCACAATGACTTAGATGTTAGTCACGTGAATACCAACCCCC
+Read: TTTAT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3800
+Ref:  TTGTCGCTAGGATCGTTTGTCTCACATAAAGCAACCATAACCATGGTCGCCAGCTCAGTCGTGGGGAACCTCGCTCTCGGTTAAACTCGTTACTTATTGC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 3900
+Ref:  GCATGCAGCGACGCGACCCTGTCTATGCTGACATATGTGCGGGTACCCTGTCGATGGCTTGGACAAAACTTGGCAGAATATATGTATTTTGCGCACCCTG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4000
+Ref:  TGACCGCCAAAAAAACGTAGGGCAAATAACAGTCTTGGGTTCGCAGTGTCTGGCGTTACCTCTCCGTAATGTTGTCCCCAGGGGGTAGTCCTCTCGACAC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4100
+Ref:  AGGAGAGGGGCAATTGCATGGAAACTGCGCGGATAGTACCCTTGTTCTTACTTAAGGTATTCGGGTATCGCCCCGCGGGACTGCCCAACGTTGGGCTAAA
+Read: AGGAGAGGGGCAATTGCATGGAAACTGCGCGGATAGTACCCTTGTTCTTA..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4200
+Ref:  GAACAGCTCGTGGCCGAGCTGTGATCTTCAGAATCTTCACAAGCCGCCAGTTATACAGTAATAGTACAACATGGGCAAAGCAGAGTCAAATGTCTATTTC
+Read: ............................................CGCCAGTTATACAGTCATAGTACAACATGGGCAAAGCAGAGTTAAATGTC
+Read: GAACAGCTCGTGGCCGAGCTGTGATCTTCAGAATCTACACAAGCCGCCAG..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4300
+Ref:  AATTATGCACAGATATAGGTCGCAGTACCGGCCTTTTACAAAAGCATAAAGCGCAGCACGTCAGTGTCTATCGTAGTCAGTACTTCTCAGATGGTTGTTA
+Read: AATTATGCACAGATATAGGTCGCAGTACCGGCCTTTTACAAAAGCATAAA..................................................
+Read: .........................................AAGTATAAAGCTCAGCACGGCAGTGTCTATCGTAGTCAGTACTTCTCAGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4400
+Ref:  GACACCACGGTCCGGTGTATAAAACTGAGACAAGGTCCTTCGGTCAGAATTATCAACTGAGAGTAATGTAGCAACTCCATGTCATTCACAATGTCTTCCT
+Read: ........................................................CTGAGAGTAATGTAGCAACTCCATGTCATTCACAATGTCTTCCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4500
+Ref:  GCAAGGCGGGTGGGTCAGTTGTTATGCCTCTCATCCAGCACTTATCAGACCATTAGAGATACCCTGAGGGTATCCGTAGGCGAACCTACAGTGCAATATA
+Read: GCAAGG
+Read: GCAAGGCGGGTGGGTCAGTTGTTATGCCTCTCATCCAGCACTTATCAGAC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4600
+Ref:  TCTCAACAGGAAGTTTAACTCCTCGCCTCACTGACGAGCTGTATATTAGTGCCTTGAGAGTCTCACGTTATAGGTCCCCATCCTAAGGGATTCCCATGAA
+Read: TCTCAACAGGAAGTTTAACTCCTCGCCTCACTGACGAGCTGTATATTAGT..................................................
+Read: ............................................ATTAGTGCCTTGAGAGTCTCACGTTATAGGTCCCCATCCTAAGGGATTCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4700
+Ref:  GAGATAGTCGTGGAAAAAAAAACGACACCTCCCACCTGTGCCAAGCGGTATGAGCCCAACGATAGCGTAGTTCTTAGGAAACGAGCATTACCATATCTAG
+Read: ........................................CCAAGCGGTATGAGCCCAACTATAGCGTAGTTCTTAGGAAACGAGCATTA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4800
+Ref:  AATCCAGAAGCGCAGCACGTCAGTGTCTATCGTAGTCAGTACTTCTCAGATGGTTGTGCTCTCGACTGTACCTTTCTTAGCGTGACCGCTATAACTCTGG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 4900
+Ref:  ACCACCAAAGCACATGTTACGTCTGCTCACACGGTGTTTTCCAAAGAATGGCTCTTACATGACGCTCCACTGGAGATGACTAGACGGTCTAGGAAAAAAC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5000
+Ref:  GAGCGTGGATTGGCTGTGTGTATCACCCTTTCATGCTGCTTACAAACATTCGTCACTGCTTACGAAAAACCTGCCCACTGGCTGCTTGGACAAAACTTGG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5100
+Ref:  CAGATTTCATGAAATCCGCCGCGGAGTAAGTCGCCCAGGAAGAGTGCAGCTCGTCAATTAAGAGGTCGCTCCTATGCGAGTTGTTTCCCCATCGGAAGTG
+Read: CAGATTTCATGAAATCCGCCGCGGAGTAAGTCGCCCAGGAAGAGTGCAGC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5200
+Ref:  CCCGCTCTCTTAATTTCTGGCGATGCGATTACAGGAGGAATGTACCTGGGACGAAAGACGGCCTATACCCTATGAGGAAAATGGATCACGTGGCAGAAGA
+Read: ................................................GGACGAAAGACGGCCTATACCCTATGAGGAAAATGGATCACGTGGGAGTA
+Read: CCCGCTCTCTTAATTTCTGGCGATGCGATTACAGGAGGAATGTACCTGGG..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5300
+Ref:  GTACATATGTTACAAGCTTTTGCGCGCTGGCGGGTTAGCATAGTCGGCTGAACTTACTGGTGTGTCACTCCCCATGCGCGGTGCGTATACCCCCATGCTA
+Read: 
+Read: ...............................................................GTCACTCCCCATGCGCGGTGCGTATACCCCCATGCTA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5400
+Ref:  AAGCTAGACTACTAGTGATACAATCTTTTGCTGAGCTAGCGGCTTGTGCTACTAACTAAAAGTCCCAGGATCCGTGACTGCACTGGAACTACCTTAGTAC
+Read: 
+Read: AAGCTAGACTACT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5500
+Ref:  GCGTCACGCTACGTGGCAACGGGTGATTTGGTCTCACCCCGAGAACGATAATGGCATAGATCCTTATGGCTCTTAACCTTATTTACATGAAGATAAGCGC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5600
+Ref:  CGCAACAGCGCCGCACGATTGTCCAGTTTGTCTTATACGTAGTCTTAAGCAATGTTTTGACCAGCGAGTAGATGCGACCGCCATTGTGCAACAAGCGCTG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5700
+Ref:  TTTATATTGTGAACTAATCCTTACCGATTAACTCCCAAGAACCTCTCAGGCCATGTTCAGGTTAAACAGCATGGTAGTATCGTCGTAGATAACGCGAGGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5800
+Ref:  GTACATCGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTATAATTGTTCGAGGGAACATCGCTTCATCAAACCAAGTCTAAGTTCTTCCTTAT
+Read: GTACATGGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTATAA..................................................
+Read: GTACATCGGATCGAGCCACATACGCTGTATCTTTCAAAGTCGCAGTATAA..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 5900
+Ref:  GCATTCTCCCGGCTCCCGGACAAGTTCAGAGAAGGTACCTTAAACTTAGCTCGTCTCGAAGCTAAGATTCGATACATGCCAGCGTCCGCGTAGCTAGTAG
+Read: ..........................................................AAGCTAAGATTCGATACATGCCAGCGTCCGCGTAGCTAGTAG
+Read: .....................................................TCTCGAAGCTAAGATTCGATACATGCCAGCGTCCGCGTAGCTAGTAG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6000
+Ref:  AATCGCGGTATACCCCGAAGCTCCATCAGGGCCCCAGTGTGGATCTCCCGTCCGGCCGGTGCAAGGCGAGGCTACTAGCAAACCAAAACAGCGAAGACAC
+Read: AATCGCGG
+Read: AAT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6100
+Ref:  TGGTCTCGCCGAACTATTAGTCAGCTGGACTGCTCCGTTTCCATCGGAGAAGGGATGTTACTACTTGACAATACTCTCGTACGGTCGAGCATCCGAAGTG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6200
+Ref:  TACCATGAGTGAAAACAACTGAAAAAACAAGGGACCGCAGAAATATATTCCAGGCCCCGAACCCTCCGCTTGGGTGACGACTGCCCAACAATCGCAGCCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6300
+Ref:  GGAAATCTTCACGTTCCATACATGTCGGGTTGTTATCATTGGGCTCCGGGATAATGAGACATTAGCCGCTGAGCAATAGCCTAGGGCAAATAACAGTCTT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6400
+Ref:  GGGTTCGCAGTGTCTGCTGCTGCCTATTATCGTGGGTTTCGTTTCACGTGCGAAACGTTGGAGTTGTCGCTACAGGCGGGTTGATTTATCGGTATGCTTG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6500
+Ref:  CCAAATAAACGTGAGCATCACAAAGGGGGTGAAGCTCGAACATCCATCCAGCAGTGTGGGGGATATAGAAACTAACTGACGCCAGATCCATCGGCTTTGC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6600
+Ref:  AAGATGGTAAATTGCTACTTCATTGCATGTTAAGCTTGAAAGTTCGTAGCGACGGGACTCGCATGTGGAACACTTGGAAGGTTCGCACTAGTCGCGGTGG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6700
+Ref:  GGGGTCTTGTTCTAACTAGATAATCTTCTGATGACAAGAAGCGCAGCACGTCAGTGTCTATCGTAGTCAGTACTTCTCAGATGGTTGTGAGAATTGGAGA
+Read: GGGGTCTTGTTCTAACTAGATAATCTTCTGATGACAAGAAGCGCAGCACG..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6800
+Ref:  GAGCCCTGTCCGTCACTCACCGGTCTCAGCGCGAGTGCATGAAAAAATCAGGCAGGTCCCCTGGGCCATTGGATTTAATATGATAGCCGCGCTGCACATT
+Read: .......................................TGAAAAAATCAGGCAGGTCCCCTGGGCCATTGGATTTAATATGATAGCCG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 6900
+Ref:  GAGCATCATACGTCACTATCTACGCTAAAATCAGTCGTCCATTAATTGGCAAAGTTCGAAAACTTACAGTTTACGCTGTGCCGCCAACTGATATATCAGC
+Read: GAGCATCATACGTCACTATCTACGCTAAAATCAGTCGTCCATTAATTGGC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7000
+Ref:  GGCTATCCAGCTAGCGCAGGCTACTAAAACCGTGAGAGGCCTGTGATGAGGTCTGCGAAAGCGGTGAACCAAAGTGGAGACCGAACGAAAGATAAATAGT
+Read: ....................................................CTGCGAAAGCGGTGAACCAAAGTGGTGACCGAACGAAAGATAAATAGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7100
+Ref:  CCGGCTGACAAGAAACATGTACGGTTTGCATCCTGTCTAGGGTATCGATAAATCTCGTCTTCGATGTGGTGAGGTCGCGCCGGGCTCGCCGCAAGCTTCA
+Read: CC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7200
+Ref:  CTATCGGACCCTCTGTCTAAGACAGTGTTCCGGTCGCATTAAGTTATCCCGTACATCGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTATAA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7300
+Ref:  ACAAATAATGGGCTTGGACAAAACTTGGCAGGCCATGCACTACCCGCTTGATTGAAGGTGCCATCGGGTCATAAGCCCCAGGTTACAGATAACGTTCCGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7400
+Ref:  CAATGCGAGGCTGAGGGGCCTCAAGAAGAAGACTGCTGGTAGGCGTAATCAACCCGAATAGGTCGCTTGGACAAAACTTGGCAGGGATACCGGGAAAGAC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7500
+Ref:  AGGCGGTACACAGTTTGACGAACTGACCTGCTTTAATCGTAGAGCACTCGGCATTTTAGTGCAAGGGTTGACGCATAATCCGTGATCGCCCCCGCGGCGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7600
+Ref:  CGTCCCATTCAACAGTTCTGCTCGTCGTGGTTACAGTAATAAGAATAGTTCCAGAAAGACGCGAAGCAAGCTGCAAGACAGGGAGGTGTAGGTCTCAGTC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7700
+Ref:  TCATTCTTGGCGCGTTCGGTACCTTCAAAACACGGAGGATGTCCAAGTCCGGTGTTCGGTTGCTCTGGGCGCTGCTCCCGGAAAGTAGAAGCCTAGGTGT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7800
+Ref:  TGAATTAAATGTTGCTATGCGGGGACTCGAATCTAAGCGCAGCACGTCAGTGTCTATCGTAGTCAGTACTTCTCAGATGGTTGTACCCCCGGCGCATTCC
+Read: TGAATTAAATGTTGCTATGCGGGGACTCGAATCTAAGCGCAGCACGTCAG..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 7900
+Ref:  GCCGCTGAGGCAAAGTAAACAAGGCGCGCGATCTGAGACGCCATGAGTTTGGTCGGTGTGGAACTTCTAAAGCAAGAATGCCCATGTTTTTTCGGCTGTA
+Read: ........................................CCATGAGTTTGGTCGGTGTGGAACTTCTAAAGCAAGTATGCCCATGTTTT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8000
+Ref:  GTCTCTCGGCCGGTTGGGCTCTGGGAGACGTCGTGAAATCATGACTGCGGGCCGGAGTATCGCTTATGTGTAACCCCTCGAGGGCAGAAAGTACGGGCGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8100
+Ref:  GGTGTAGGACGTCTTCGATAGAAACGCTGCGTACACACGGCCTTAAGCCGTCAGCTCTATCAGTATTGGTTTGTAGTGAAGAGAGATGTTTCTGCAATAC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8200
+Ref:  CCCTGTTACTTACCCCTGTGTAGCAGGCGGCGTGAGCGAGAGCCATACAGGGTCCTTGATGCCGGAAACGGGTTACGTGCGAAGCTCCCGCAGCCGGTCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8300
+Ref:  ACTATCGTAAGGCCTTCCGTCGCAAGTAGTCATATTGCACGTTTTCTCGAGAACAGAATTACGGGATTGTACCGAGTTGGACGAAAAAGCGGACATTGCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8400
+Ref:  TATGTGCAAAGATTCGTTGGGACCTTCCTTCCGCCCTTGTCGCCTCATGCGAAACACCAACACGTCACAGCGAGTATATAGGAGCTCATGCATCACGCGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8500
+Ref:  TGAAACCTTCACTGCATATACGTACATCGTTCAACGCGGAAGTATTAAAATATAACGTTAATTAAACCCTTCCAAACTGCACTCGTCAAACCGCCTATCT
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8600
+Ref:  TGTGCTATCAGTTTAGGCCGAATGCTTGAAGGTAGGCAAAAGCGTACAAGTGCACCAGCTACAAAGGCGGTGCTTATCACTCCTTGTGGCTCGCTAGCTC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8700
+Ref:  GCGGGGGGATGTTGAAGCCCCGTGAATGATTCTTTGGGGGTGCCCAGTGCTCATGACGCGGGCCAACGTTGGCACAGGCGACTCTTAACCTGACCGGGCC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8800
+Ref:  CCCAGCGATGTACGACGGAGTTCGCAATTGTTCTCGACCTTTGTGGTTCACGTACGGCAACTTTAATGGAACGGTCTTATCTACAGACGAGATTACGCGG
+Read: CCCAGCAATGTACGACGGAGTTCGCAATTGTTCTCGACCTTAGTGGTTCC..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 8900
+Ref:  AGACTTCAACGATACCTCCTTTCCTCCCTTTTAGTATGACAACGGATCAATCTGTACATCGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTA
+Read: ..........................................................TCGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9000
+Ref:  TAAAGGGAGGCGAGCGATCCACGAAACACTCAGACGGCCTGACTCTCGGATGGGGCCGAAAGAAAGATGTCATGGTTGCATAGTATGACTTCGGAAATCC
+Read: TAAAGGGA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9100
+Ref:  CGCGGCTTGTATGTCTCCGTGCATGCAGGACAATAGCAAAGGCCTATCATCTTCAGTACAAGTTAAAACGTATAGTGCGGTGTGTACTGTGTTGCTGCAC
+Read: CGCGGCTTGTATGTCTCCGTGCATGCAGGACAATAGCAAAGGCCTAACGT..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9200
+Ref:  CTACCTCCTACACCTGTGCTGACTGAGAAACGATTTGGGTAGACGCCCCACGTAGCACACATCCAGAGGATCGTATCTCTTCCCCCGCTTAATGAGGCAG
+Read: ................................................CACGTAGCACACATCCAGAGGATCGTATCTCTTCCCCCGCTTAATGAGGC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9300
+Ref:  GCTACTCTGGCAGGCGCTCTTACTCACGCGGGCTTAGCAGCGCGACTCCGAGCTATGGCCGTCAATAGAGCACCAGCGCCCATGTGGGTACACGTCGGCG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9400
+Ref:  GACCGTCCGGTAGGACCTAAAGAGTAGATGAGCTAGAAGTGCTATGGATACAGCAATGCAAGGTAAGCGCCTCGCGTCATCTTGGCGATGGATTTGTTAG
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9500
+Ref:  GAATCGGGGTGTCGATCGCGAACGGCCCACCTTTCTCATGAGCATCCTGACTGGGATCCACCAACGGCTTAAGAGAGGGGAATTCCCCGAGGGAAGTGTC
+Read: GAATCGGGGTGTCGATCGCGAACGGCCCACCTTTCTCATCAGCATCCTGA..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9600
+Ref:  TACATCTTCACCTTAAGTTGAGCAGGGGTCTTGTGACATTCGCCTTGCCAAGGTAGCTATCTGACACTTTCACGCGAATGATAAAGAGTCTAGAGGATAT
+Read: .......................................................GCTATCTGACACTTTCACGCGAATGATAAAGAGTCTAGAGGATAT
+Read: TACATCTTCACCTTAAGTTGAGCAGGGGTCTTGTGACATTCGCCTTGCCA..................................................
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9700
+Ref:  CTAGGGAGTGTATTTTCTGTCGGTGGTAGGAATCTGTCACTGATATTCTGATCCTACCGTTGGTGACCACTGGGGTATCAGGTATCGAACAAAACGGGGG
+Read: CTAGG
+Read: .............................................TTCTGATCCTACCGTTGGTGACCACTGGGGTATCAGGTATCGAACAAAAC
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9800
+Ref:  GTTCTAGCTCTAATTTGTGTTCTATACGTGAGTAGCGTGCTTCGCGTGCCTTTAAGCGAATTCCTTAGCTTTCCCTGGGGGGCTTAGACAGCGCATGCCA
+
+----------------------------------------------------------------------------------------------------------
+
+Reference index: 9900
+Ref:  ACTGGTACATCGGATCGAGCCAGATACGCTGTATCTTTCAAAGTCGCAGTATAACAGTAGAGCGCATTTGTCTCAGGGGGTTACACCGTAGCTGTCTTAG
+
+----------------------------------------------------------------------------------------------------------
+
