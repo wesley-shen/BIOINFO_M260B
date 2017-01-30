@@ -192,7 +192,7 @@ def identify_changes(ref, donor, offset):
     ref = '${}'.format(ref)
     donor = '${}'.format(donor)
     edit_matrix = edit_distance_matrix(ref=ref, donor=donor)
-    print edit_matrix
+    print (edit_matrix)
     current_row = len(ref) - 1
     current_column = len(donor) - 1
     changes = []

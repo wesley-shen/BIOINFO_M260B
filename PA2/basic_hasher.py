@@ -1,5 +1,5 @@
 from collections import defaultdict, Counter
-import cPickle as pickle
+import pickle as pickle
 from os.path import join, exists, splitext
 import time
 import os
@@ -19,13 +19,29 @@ def hash_end(end, genome_ht):
     :return:
     """
     key_length = len(genome_ht.keys()[0])
-    end_pieces = [end[i * key_length: (i + 1) * key_length]
-                  for i in range(len(end) / key_length)]
-
-    hashed_read_locations = [genome_ht[read_piece]
-                             for read_piece in end_pieces]
-    start_positions = [[x - i * key_length for x in hashed_read_locations[i]]
-                       for i in range(len(hashed_read_locations))]
+    location_shift = len(end) % key_length
+    if (location_shift == 0):
+        end_pieces = [end[i * key_length: (i + 1) * key_length]
+                      for i in range(len(end) // key_length)]    
+        hashed_read_locations = [genome_ht[read_piece]
+                                 for read_piece in end_pieces]
+        start_positions = [[x - i * key_length for x in hashed_read_locations[i]]
+                           for i in range(len(hashed_read_locations))]
+    elif (location_shift == 1):
+        end_pieces = [end[i * key_length: (i + 1) * key_length] if i == 0 else end[i*(key_length-1):(i+1)*(key_length-1)]
+                      for i in range(len(end) // key_length)]    
+        hashed_read_locations = [genome_ht[read_piece]
+                                 for read_piece in end_pieces]
+        start_positions = [[x - i * (key_length-1) for x in hashed_read_locations[i]]
+                           for i in range(len(hashed_read_locations))]
+    else:
+        end_pieces = [end[i * key_length: (i + 1) * key_length] if i != 2 else end[i*key_length-1:(i+1)*key_length-1]
+                      for i in range(len(end) // key_length)]    
+        hashed_read_locations = [genome_ht[read_piece]
+                                 for read_piece in end_pieces]
+        start_positions = [[x-i*key_length if i != 2 else x-i*key_length+1 for x in hashed_read_locations[i]]
+                           for i in range(len(hashed_read_locations))]
+                               
     start_counter = Counter()
 
     for position_list in start_positions:
@@ -36,7 +52,11 @@ def hash_end(end, genome_ht):
     else:
         best_alignment_location, best_alignment_count = \
             start_counter.most_common(1)[0]
-
+    
+    """
+    Wesley Note: potential change here, maybe more stringent cutoff could increase speed 
+    in next step for filtration of reads
+    """
     if best_alignment_count < 2:
         return -1, best_alignment_count
     else:
@@ -117,21 +137,22 @@ def hashing_algorithm(paired_end_reads, genome_ht):
         genome_aligned_reads.append(genome_aligned_read)
         count += 1
         if count % 100 == 0:
-            time_passed = (time.clock()-start)/60
-            print '{} reads aligned'.format(count), 'in {:.3} minutes'.format(time_passed)
-            remaining_time = time_passed/count*(len(paired_end_reads)-count)
-            print 'Approximately {:.3} minutes remaining'.format(remaining_time)
+            time_passed = (time.clock()-start)//60
+            print ('{} reads aligned'.format(count), 'in {:.3} minutes'.format(time_passed))
+            remaining_time = time_passed//count*(len(paired_end_reads)-count)
+            print ('Approximately {:.3} minutes remaining'.format(remaining_time))
     return alignments, genome_aligned_reads
 
 if __name__ == "__main__":
-    genome_name = 'practice_W_1'
+    genome_name = 'practice_W_3'
     input_folder = './{}'.format(genome_name)
     chr_name = '{}_chr_1'.format(genome_name)
     reads_fn_end = 'reads_{}.txt'.format(chr_name)
     reads_fn = join(input_folder, reads_fn_end)
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
-    key_length = 7
+    read_length = 50
+    key_length = read_length // 3 if read_length % 3 == 0 else read_length // 3 + 1
     start = time.clock()
     reads = read_reads(reads_fn)
     # If you want to speed it up, cut down the number of reads by
@@ -143,4 +164,4 @@ if __name__ == "__main__":
     # print genome_aligned_reads
     # print alignments
     output_str = pretty_print_aligned_reads_with_ref(genome_aligned_reads, alignments, ref)
-    print output_str[:5000]
+    print (output_str[:5000])
