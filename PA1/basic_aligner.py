@@ -31,8 +31,9 @@ def trivial_algorithm(paired_end_reads, ref):
     start = time.clock()
 
     # build up the hash table for the reference genome
-    oligomer_len = 17
-    ref_dict = defaultdict(set)
+    read_length = 50
+    oligomer_len = read_length // 3 if read_length % 3 == 0 else read_length // 3 + 1
+    ref_dict = defaultdict(list)
     for i in range(len(ref)-oligomer_len):
         ref_dict[ref[i:i+oligomer_len]].add(i)
 
@@ -47,78 +48,47 @@ def trivial_algorithm(paired_end_reads, ref):
             print ('Approximately {:.3} minutes remaining'.format(remaining_time))
         for read in read_pair:
             # break the read into three segments
-            read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2-1:len(read)]]
-            min_mismatches = oligomer_len
-            min_mismatch_location = -1
-            for i in range(len(read_segs)):
-                targeted_location = ref_dict[read_segs[i]]
-                min_mismatches = oligomer_len*2
-                min_mismatches_location = -1
-                if targeted_location != []:                    
-                    if (i == 0):
-                        for j in targeted_location:
-                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] else 0 for k in range(0, len(read)-oligomer_len)]
-                    elif (i == 1):
-                        for j in targeted_location:			    
-                            mismatch_1 = [1 if read[k] != ref[j-oligomer_len+k] else 0 for k in range(0, oligomer_len)]
-                            mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] else 0 for k in range(0, oligomer_len)]
-                            mismatches = mismatch_1+mismatch
-                    else:            		        
-                        for j in targeted_location:
-                            mismatches = [1 if read[k] != ref[j-oligomer_len*2+1] else 0 for k in range(0, len(read)-oligomer_len)]
-                else:
-                    continue
-                
-            reverse_read = read[::-1]
-            read_segs = [read[0:oligomer_len], read[oligomer_len:oligomer_len*2], read[oligomer_len*2-1:len(read)]]
-            for i in range(len(read_segs)):
-                targeted_locations = ref_dict[read_segs[i]]
-                min_mismatches = oligomer_len*2
-                min_mismatches_location = -1
-                if targeted_location != []:                    
-                    if (i == 0):
-                        for j in targeted_location:
-                            mismatches = [1 if read[oligomer_len+k] != ref[j+oligomer_len+k] else 0 for k in range(0, len(read)-oligomer_len)]
-                    elif (i == 1):
-                        for j in targeted_location:
-                            mismatch_1 = [1 if read[k] != ref[j-oligomer_len+k] else 0 for k in range(0, oligomer_len)]
-                            mismatch_2 = [1 if read[oligomer_len*2-1+k] != ref[j+oligomer_len+k] else 0 for k in range(0, oligomer_len)]
-                            mismatches = mismatch_1+mismatch
-                    else:
-                        for j in targeted_location:
-                            mismatches = [1 if read[k] != ref[j-oligomer_len*2+1] else 0 for k in range(0, len(read)-oligomer_len)]
-                else:
-                    continue
-            # for i in range(len(ref) - len(read)):
-            #     mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
-            #     n_mismatches = sum(mismatches)
-            #     # The above line should be familiar to Python users, but bears  some explanation for
-            #     # people who are getting started with it. The "mismatches = ..." line
-            #     # is called a "list comprehension. Basically, this is a short way of writing the loop:
-            #     #
-            #     # n_mismatches = 0
-            #     # for j in range(len(read)):
-            #     # if read[j] != ref[i+j]:
-            #     #         n_mismatches += 1
-            #     #
-            #     # The first line creates a list which has a 1 for every mismatch and a 0 for every match.
-            #     # The second line sums the list created by the first line, which counts the number of mismatches.
-            #     if n_mismatches < min_mismatches:
-            #         min_mismatches = n_mismatches
-            #         min_mismatch_location = i
 
-            # reversed_read = read[::-1]
-            # for i in range(len(ref) - 50):
-            #     mismatches = [1 if reversed_read[j] != ref[i + j] else 0 for j in range(len(read))]
-            #     n_mismatches = sum(mismatches)
-            #     if n_mismatches < min_mismatches:
-            #         min_mismatches = n_mismatches
-            #         min_mismatch_location = i
-            #         read = reversed_read
-            # if (mismatches < 3):
-            #     read_alignment_locations.append(min_mismatch_location)
-            #     output_read_pair.append(read)
+            for i in range(len(ref) - len(read)):
+                mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
+                n_mismatches = sum(mismatches)
+                # The above line should be familiar to Python users, but bears  some explanation for
+                # people who are getting started with it. The "mismatches = ..." line
+                # is called a "list comprehension. Basically, this is a short way of writing the loop:
+                #
+                # n_mismatches = 0
+                # for j in range(len(read)):
+                # if read[j] != ref[i+j]:
+                #         n_mismatches += 1
+                #
+                # The first line creates a list which has a 1 for every mismatch and a 0 for every match.
+                # The second line sums the list created by the first line, which counts the number of mismatches.
+                if n_mismatches < min_mismatches:
+                    min_mismatches = n_mismatches
+                    min_mismatch_location = i
+
+            reversed_read = read[::-1]
+            for i in range(len(ref) - 50):
+                mismatches = [1 if reversed_read[j] != ref[i + j] else 0 for j in range(len(read))]
+                n_mismatches = sum(mismatches)
+                if n_mismatches < min_mismatches:
+                    min_mismatches = n_mismatches
+                    min_mismatch_location = i
+                    read = reversed_read
+
+            if (min_mismatches > 1):
+                read_alignment_locations = []
+                output_read_pair = []                
+                break
+            read_alignment_locations.append(min_mismatch_location)
+            output_read_pair.append(read)
             # # Note that there are some huge potential problems here.
+            # # resolved by add a new threshold
+            
+        if (len(read_alignment_locations) < 2): 
+            continue
+        all_read_alignment_locations.append(read_alignment_locations)
+        output_read_pairs.append(output_read_pair)
 
         all_read_alignment_locations.append(read_alignment_locations)
         output_read_pairs.append(output_read_pair)
