@@ -116,7 +116,7 @@ def hashing_algorithm(paired_end_reads, genome_ht):
         alignments.append(alignment)
         genome_aligned_reads.append(genome_aligned_read)
         count += 1
-        if count % 100 == 0:
+        if count % 1000 == 0:
             time_passed = (time.clock()-start)/60
             print ('{} reads aligned'.format(count), 'in {:.3} minutes'.format(time_passed))
             remaining_time = time_passed/count*(len(paired_end_reads)-count)
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     reads_fn = join(input_folder, reads_fn_end)
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
-    key_length = 10
+    key_length = 5
     start = time.clock()
     reads = read_reads(reads_fn)
     # If you want to speed it up, cut down the number of reads by
