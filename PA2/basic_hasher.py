@@ -143,4 +143,7 @@ if __name__ == "__main__":
     # print genome_aligned_reads
     # print alignments
     output_str = pretty_print_aligned_reads_with_ref(genome_aligned_reads, alignments, ref)
+    output_fn = join(input_folder, 'aligned_{}.txt'.format(chr_name))
+    with(open(output_fn, 'w')) as output_file:
+        output_file.write(output_str)
     print (output_str[:5000])

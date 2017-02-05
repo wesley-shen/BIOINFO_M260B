@@ -11,7 +11,6 @@ from BIOINFO_M260B.helpers import *
 
 READ_LENGTH = 50
 
-
 def generate_pileup(aligned_fn):
     """
     :param aligned_fn: The filename of the saved output of the basic aligner
@@ -84,7 +83,7 @@ def align_to_donor(donor, read):
         best_read = read
         best_score = score
 
-    for shift_amount in range(-3, 0) + range(1, 4):  # This can be improved
+    for shift_amount in range(-3, 0) and range(1, 4):  # This can be improved
         if shift_amount > 0:
             shifted_read = ' ' * shift_amount + read
         elif shift_amount < 0:
@@ -278,7 +277,7 @@ def consensus(ref, aligned_reads):
         # Spaces and dots (representing the distance between paired ends) do not count as DNA bases
         for base in read_bases:
             base_count[base] += 1
-        consensus_base = max(base_count.iterkeys(), key=(lambda key: base_count[key]))
+        consensus_base = max(base_count.keys(), key=(lambda key: base_count[key]))
         # The above line chooses (a) key with maximum value in the read_bases dictionary.
         consensus_string += consensus_base
     return consensus_string
@@ -312,7 +311,7 @@ if __name__ == "__main__":
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
     start = time.clock()
-    input_fn = join(input_folder, 'aligned_reads_{}.txt'.format(chr_name))
+    input_fn = join(input_folder, 'aligned_{}.txt'.format(chr_name))
     snps, insertions, deletions = generate_pileup(input_fn)
     output_fn = join(input_folder, 'changes_{}.txt'.format(chr_name))
     with open(output_fn, 'w') as output_file:
