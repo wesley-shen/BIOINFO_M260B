@@ -19,28 +19,28 @@ def hash_end(end, genome_ht):
     :return:
     """
     key_length = len(list(genome_ht.keys())[0])
-    location_shift = len(end) % key_length
-    if (location_shift == 0):
-        end_pieces = [end[i * key_length: (i + 1) * key_length]
-                      for i in range(len(end) // key_length)]    
-        hashed_read_locations = [genome_ht[read_piece]
-                                 for read_piece in end_pieces]
-        start_positions = [[x - i * key_length for x in hashed_read_locations[i]]
-                           for i in range(len(hashed_read_locations))]
-    elif (location_shift == 1):
-        end_pieces = [end[i * key_length: (i + 1) * key_length] if i == 0 else end[i*(key_length-1):(i+1)*(key_length-1)]
-                      for i in range(len(end) // key_length)]    
-        hashed_read_locations = [genome_ht[read_piece]
-                                 for read_piece in end_pieces]
-        start_positions = [[x - i * (key_length-1) for x in hashed_read_locations[i]]
-                           for i in range(len(hashed_read_locations))]
-    else:
-        end_pieces = [end[i * key_length: (i + 1) * key_length] if i != 2 else end[i*key_length-1:(i+1)*key_length-1]
-                      for i in range(len(end) // key_length)]    
-        hashed_read_locations = [genome_ht[read_piece]
-                                 for read_piece in end_pieces]
-        start_positions = [[x-i*key_length if i != 2 else x-i*key_length+1 for x in hashed_read_locations[i]]
-                           for i in range(len(hashed_read_locations))]
+#    location_shift = len(end) % 3
+#    if (location_shift == 0):
+    end_pieces = [end[i * key_length: (i + 1) * key_length]
+                  for i in range(len(end) // key_length)]    
+    hashed_read_locations = [genome_ht[read_piece]
+                             for read_piece in end_pieces]
+    start_positions = [[x - i * key_length for x in hashed_read_locations[i]]
+                       for i in range(len(hashed_read_locations))]
+#    elif (location_shift == 1):
+#        end_pieces = [end[i * key_length: (i + 1) * key_length] if i == 0 else end[i*(key_length-1):(i+1)*(key_length-1)]
+#                      for i in range(len(end) // key_length + 1)]    
+#        hashed_read_locations = [genome_ht[read_piece]
+#                                 for read_piece in end_pieces]
+#        start_positions = [[x - i * (key_length-1) for x in hashed_read_locations[i]]
+#                           for i in range(len(hashed_read_locations))]
+#    else:
+#    end_pieces = [end[i * key_length: (i + 1) * key_length] if i != 2 else end[i*key_length-1:(i+1)*key_length-1]
+#                  for i in range(len(end) // key_length + 1)]    
+#    hashed_read_locations = [genome_ht[read_piece]
+#                             for read_piece in end_pieces]
+#    start_positions = [[x-i*key_length if i != 2 else x-i*key_length+1 for x in hashed_read_locations[i]]
+#                       for i in range(len(hashed_read_locations))]
                                
     start_counter = Counter()
 
@@ -102,7 +102,6 @@ def make_genome_hash(reference, key_length):
         genome_hash[ref_piece].append(i)
     return genome_hash
 
-
 def build_hash_and_pickle(ref_fn, key_length, force_rebuild=False):
     reference_hash_pkl_fn = '{}_hash_keylength_{}.pkl'.format(splitext(ref_fn)[0], key_length)
     if exists(reference_hash_pkl_fn) and not force_rebuild:
@@ -118,10 +117,8 @@ def build_hash_and_pickle(ref_fn, key_length, force_rebuild=False):
     pickle.dump(ref_genome_hash, open(reference_hash_pkl_fn, 'wb'))
     return ref_genome_hash
 
-
 def hashing_algorithm(paired_end_reads, genome_ht):
     """
-
     :param paired_end_reads:
     :param genome_ht:
     :return:
@@ -152,16 +149,20 @@ if __name__ == "__main__":
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
     read_length = 50
-    key_length = read_length // 3 if read_length % 3 == 0 else read_length // 3 + 1
+#    key_length = read_length // 3 if read_length % 3 == 0 else read_length // 3 + 1
+    key_length = 5
     start = time.clock()
     reads = read_reads(reads_fn)
     # If you want to speed it up, cut down the number of reads by
     # changing the line to reads = read_reads(reads_fn)[:<x>] where <x>
     # is the number of reads you want to work with.
-    genome_hash_table = build_hash_and_pickle(ref_fn, key_length)
+    genome_hash_table = build_hash_and_pickle(ref_fn, key_length, True)
     ref = read_reference(ref_fn)
     genome_aligned_reads, alignments = hashing_algorithm(reads, genome_hash_table)
     # print genome_aligned_reads
     # print alignments
     output_str = pretty_print_aligned_reads_with_ref(genome_aligned_reads, alignments, ref)
+    output_fn = join(input_folder, 'aligned_PA2_branch{}.txt'.format(chr_name))
+    with(open(output_fn, 'w')) as output_file:
+        output_file.write(output_str)
     print (output_str[:5000])
