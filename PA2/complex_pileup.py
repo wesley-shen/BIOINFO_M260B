@@ -12,7 +12,6 @@ from BIOINFO_M260B.helpers import *
 
 READ_LENGTH = 50
 
-
 def generate_pileup(aligned_fn):
     """
     :param aligned_fn: The filename of the saved output of the basic aligner
@@ -81,8 +80,9 @@ def align_to_donor(donor, read):
     else:
         best_read = read
         best_score = score
-
-    for shift_amount in chain(range(-3, 0), range(1, 4)):  # This can be improved
+    
+    # The following tries to improve the detection of indels
+    for shift_amount in chain(range(-5, 0), range(1, 6)):  # This can be improved
         if shift_amount > 0:
             shifted_read = ' ' * shift_amount + read
         elif shift_amount < 0:
@@ -160,7 +160,7 @@ def edit_distance_matrix(ref, donor):
     # This is a very fast and memory-efficient way to allocate a matrix
     """
     use Smith-Waterman algorithms
-    set the substitution cost to be +-3
+    set the substitution cost to be 3
     set the indel cost to be 2    
     """
     for i in range(len(ref)+1):
@@ -171,10 +171,10 @@ def edit_distance_matrix(ref, donor):
         for i in range(1, len(ref)+1):  # Big opportunities for improvement right here.
             exist_value = output_matrix[i, j]
             # figure out insertion or deletion             
-            deletion = output_matrix[i - 1, j] - 2
-            insertion = output_matrix[i, j - 1] - 2
-            identity = output_matrix[i - 1, j - 1] + 3 if ref[i] == donor[j] else -np.inf
-            substitution = output_matrix[i - 1, j - 1] - 3 if ref[i] != donor[j] else -np.inf
+            deletion = output_matrix[i - 1, j] - 1
+            insertion = output_matrix[i, j - 1] - 1
+            identity = output_matrix[i - 1, j - 1] + 3 if ref[i-1] == donor[j-1] else -np.inf
+            substitution = output_matrix[i - 1, j - 1] - 2 if ref[i-1] != donor[j-1] else -np.inf
             output_matrix[i, j] = max(insertion, deletion, identity, substitution, exist_value)
     return output_matrix
 
@@ -194,7 +194,7 @@ def identify_changes(ref, donor, offset):
     ref = '${}'.format(ref)
     donor = '${}'.format(donor)
     edit_matrix = edit_distance_matrix(ref=ref, donor=donor)
-    print (edit_matrix)
+#    print (edit_matrix)
     current_row, current_column = np.unravel_index(edit_matrix.argmax(), edit_matrix.shape)
     changes = []
     while (current_row > 0 or current_column > 0) and edit_matrix[current_row, current_column] != 0:
@@ -211,48 +211,49 @@ def identify_changes(ref, donor, offset):
         try:
             insertion_dist = edit_matrix[current_row, pvs_column]
         except IndexError:
-            insertion_dist = np.inf
+            insertion_dist = -np.inf
 
         try:
             deletion_dist = edit_matrix[pvs_row, current_column]
         except IndexError:
-            deletion_dist = np.inf
+            deletion_dist = -np.inf
 
         try:
-            if ref[current_row] == donor[current_column]:
+            if ref[current_row-1] == donor[current_column-1]:
                 identity_dist = edit_matrix[pvs_row, pvs_column]
             else:
-                identity_dist = np.inf
+                identity_dist = -np.inf
 
-            if ref[current_row] != donor[current_column]:
+            if ref[current_row-1] != donor[current_column-1]:
                 substitution_dist = edit_matrix[pvs_row, pvs_column]
             else:
-                substitution_dist = np.inf
+                substitution_dist = -np.inf
         except (TypeError, IndexError) as e:
-            identity_dist = np.inf
-            substitution_dist = np.inf
+            identity_dist = -np.inf
+            substitution_dist = -np.inf
 
-        min_dist = min(insertion_dist, deletion_dist, identity_dist, substitution_dist)
-
-        ref_index = current_row + offset - 1
-        if min_dist == identity_dist:
+        max_dist = max(insertion_dist, deletion_dist, identity_dist, substitution_dist)
+        if identity_dist == 0: max_dist = 0
+        # deprecated: changed ref_index by remvoe -1
+        ref_index = current_row + offset 
+        if max_dist == identity_dist:
             current_row = pvs_row
             current_column = pvs_column
-        elif min_dist == substitution_dist:
+        elif max_dist == substitution_dist:
             changes.append(['SNP', ref[current_row], donor[current_column], ref_index])
             current_row = pvs_row
             current_column = pvs_column
-        elif min_dist == insertion_dist:
+        elif max_dist == insertion_dist:
             if len(changes) > 0 and changes[-1][0] == 'INS' and changes[-1][-1] == ref_index + 1:
-                changes[-1][1] = donor[current_column] + changes[-1][1]
+                changes[-1][1] = donor[current_column-1] + changes[-1][1]
             else:
-                changes.append(['INS', donor[current_column], ref_index + 1])
+                changes.append(['INS', donor[current_column-1], ref_index + 1])
             current_column = pvs_column
-        elif min_dist == deletion_dist:
+        elif max_dist == deletion_dist:
             if len(changes) > 0 and changes[-1][0] == 'DEL' and changes[-1][-1] == ref_index + 1:
-                changes[-1] = ['DEL', ref[current_row] + changes[-1][1], ref_index]
+                changes[-1] = ['DEL', ref[current_row-1] + changes[-1][1], ref_index]
             else:
-                changes.append(['DEL', ref[current_row], ref_index])
+                changes.append(['DEL', ref[current_row-1], ref_index])
             current_row = pvs_row
         else:
             raise ValueError
@@ -279,7 +280,7 @@ def consensus(ref, aligned_reads):
         # Spaces and dots (representing the distance between paired ends) do not count as DNA bases
         for base in read_bases:
             base_count[base] += 1
-        consensus_base = max(base_count.iterkeys(), key=(lambda key: base_count[key]))
+        consensus_base = max(base_count.keys(), key=(lambda key: base_count[key]))
         # The above line chooses (a) key with maximum value in the read_bases dictionary.
         consensus_string += consensus_base
     return consensus_string
@@ -306,7 +307,8 @@ if __name__ == "__main__":
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
     start = time.clock()
-    input_fn = join(input_folder, 'aligned_reads_{}.txt'.format(chr_name))
+#    input_fn = join(input_folder, 'aligned_reads_{}.txt'.format(chr_name))
+    input_fn = join(input_folder, "aligned_PA2_branchhw2undergrad_E_2_chr_1.txt")
     snps, insertions, deletions = generate_pileup(input_fn)
     output_fn = join(input_folder, 'changes_PA2_branch{}.txt'.format(chr_name))
     with open(output_fn, 'w') as output_file:
