@@ -70,7 +70,6 @@ def align_to_donor(donor, read):
     :param read: A single read padded with spaces
     :return: The best scoring
     """
-
     mismatches = [1 if donor[i] != ' ' and read[i] != ' ' and
                        read[i] != donor[i] else 0 for i in range(len(donor))]
     n_mismatches = sum(mismatches)
@@ -83,7 +82,7 @@ def align_to_donor(donor, read):
         best_read = read
         best_score = score
 
-    for shift_amount in range(-3, 0) and range(1, 4):  # This can be improved
+    for shift_amount in range(-5, 0) and range(1, 6):  # This can be improved
         if shift_amount > 0:
             shifted_read = ' ' * shift_amount + read
         elif shift_amount < 0:
@@ -93,13 +92,25 @@ def align_to_donor(donor, read):
         n_mismatches = sum(mismatches)
         overlaps = [1 if donor[i] != ' ' and shifted_read[i] != ' ' else 0 for i in range(len(donor))]
         n_overlaps = sum(overlaps)
-        score = n_overlaps - n_mismatches - 3 * abs(shift_amount)
+        score = n_overlaps - n_mismatches - 5 * abs(shift_amount)
         if score > best_score:
             best_read = shifted_read
             best_score = score
     return best_read, best_score
 
-
+def longestOverlapSeqFinder(string1, string2):
+    answer = ""
+    len1, len2 = len(string1), len(string2)
+    for i in range(len1):
+        match = ""
+        for j in range(len2):
+            if (i + j < len1 and string1[i + j] == string2[j]):
+                match += string2[j]
+            else:
+                if (len(match) > len(answer)): answer = match
+                match = ""
+    return answer
+    
 def generate_donor(ref, aligned_reads):
     """
     Aligns the reads against *each other* to generate a hypothesized donor genome.
@@ -111,7 +122,9 @@ def generate_donor(ref, aligned_reads):
     ## Start by appending spaces to the reads so they line up with the reference correctly.
     padded_reads = [aligned_read + ' ' * (len(ref) - len(aligned_read)) for aligned_read in cleaned_aligned_reads]
     consensus_string = consensus(ref, aligned_reads)
-
+    overlap = longestOverlapSeqFinder(ref, consensus_string)
+    garbage_subseqs = [consensus_string[:consensus_string.find(overlap)], consensus_string[consensus_string.find(overlap)+len(overlap):]]
+    
     ## Seed the donor by choosing the read that best aligns to the reference.
     read_scores = [sum([1 if padded_read[i] == ref[i] and padded_read[i] != ' '
                         else 0 for i in range(len(padded_read))])
@@ -125,6 +138,12 @@ def generate_donor(ref, aligned_reads):
     while padded_reads:
         un_donored_reads = []
         for padded_read in padded_reads:
+            if padded_read[0] == ' ':
+                padded_read = padded_read[len(garbage_subseqs[0]):]
+                padded_read += ' ' * (len(donor_genome) - len(padded_read))
+            else:
+                padded_read = padded_read[:-len(garbage_subseqs[1])]
+                padded_read = ' ' * (len(donor_genome) - len(padded_read)) + padded_read
             re_aligned_read, score = align_to_donor(donor_genome, padded_read)
             if score < 10:  # If the alignment isn't good, throw the read back in the set of reads to be aligned.
                 un_donored_reads.append(padded_read)
@@ -167,9 +186,9 @@ def edit_distance_matrix(ref, donor):
         output_matrix[0, j] = j
     for j in range(1, len(donor)):
         for i in range(1, len(ref)):  # Big opportunities for improvement right here.
-            deletion = output_matrix[i - 1, j] + 1
-            insertion = output_matrix[i, j - 1] + 1
-            identity = output_matrix[i - 1, j - 1] - 2 if ref[i] == donor[j] else np.inf
+            deletion = output_matrix[i - 1, j] + 4
+            insertion = output_matrix[i, j - 1] + 4
+            identity = output_matrix[i - 1, j - 1] - 5 if ref[i] == donor[j] else np.inf
             substitution = output_matrix[i - 1, j - 1] + 2 if ref[i] != donor[j] else np.inf
             output_matrix[i, j] = min(insertion, deletion, identity, substitution)
     return output_matrix
@@ -281,7 +300,6 @@ def consensus(ref, aligned_reads):
         consensus_string += consensus_base
     return consensus_string
 
-
 if __name__ == "__main__":
 
     # print edit_distance_matrix('$PRETTY', '$PRTTEIN')
@@ -312,7 +330,7 @@ if __name__ == "__main__":
     start = time.clock()
     input_fn = join(input_folder, 'aligned_{}.txt'.format(chr_name))
     snps, insertions, deletions = generate_pileup(input_fn)
-    output_fn = join(input_folder, 'changes_{}_.txt'.format(chr_name))
+    output_fn = join(input_folder, 'changes_{}__.txt'.format(chr_name))
     with open(output_fn, 'w') as output_file:
         output_file.write('>' + chr_name + '\n>SNP\n')
         for x in snps:
