@@ -169,11 +169,10 @@ def edit_distance_matrix(ref, donor):
         for i in range(1, len(ref)):  # Big opportunities for improvement right here.
             deletion = output_matrix[i - 1, j] + 1
             insertion = output_matrix[i, j - 1] + 1
-            identity = output_matrix[i - 1, j - 1] if ref[i] == donor[j] else np.inf
-            substitution = output_matrix[i - 1, j - 1] + 1 if ref[i] != donor[j] else np.inf
+            identity = output_matrix[i - 1, j - 1] - 2 if ref[i] == donor[j] else np.inf
+            substitution = output_matrix[i - 1, j - 1] + 2 if ref[i] != donor[j] else np.inf
             output_matrix[i, j] = min(insertion, deletion, identity, substitution)
     return output_matrix
-
 
 def identify_changes(ref, donor, offset):
     """
@@ -191,7 +190,7 @@ def identify_changes(ref, donor, offset):
     ref = '${}'.format(ref)
     donor = '${}'.format(donor)
     edit_matrix = edit_distance_matrix(ref=ref, donor=donor)
-    print (edit_matrix)
+#    print (edit_matrix)
     current_row = len(ref) - 1
     current_column = len(donor) - 1
     changes = []
@@ -313,7 +312,7 @@ if __name__ == "__main__":
     start = time.clock()
     input_fn = join(input_folder, 'aligned_{}.txt'.format(chr_name))
     snps, insertions, deletions = generate_pileup(input_fn)
-    output_fn = join(input_folder, 'changes_{}.txt'.format(chr_name))
+    output_fn = join(input_folder, 'changes_{}_.txt'.format(chr_name))
     with open(output_fn, 'w') as output_file:
         output_file.write('>' + chr_name + '\n>SNP\n')
         for x in snps:
