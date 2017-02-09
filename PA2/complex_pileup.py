@@ -92,7 +92,7 @@ def align_to_donor(donor, read):
         n_mismatches = sum(mismatches)
         overlaps = [1 if donor[i] != ' ' and shifted_read[i] != ' ' else 0 for i in range(len(donor))]
         n_overlaps = sum(overlaps)
-        score = n_overlaps - n_mismatches - 3 * abs(shift_amount)
+        score = n_overlaps - n_mismatches - 5 * abs(shift_amount)
         if score > best_score:
             best_read = shifted_read
             best_score = score
@@ -153,7 +153,7 @@ def edit_distance_matrix(ref, donor):
     :param donor: donor genome guess (as an ACTG string)
     :return: complete (len(ref) + 1) x (len(donor) + 1) matrix computing all changes
     """
-    output_matrix = np.zeros((len(donor), len(ref)))
+#    output_matrix = np.zeros((len(donor), len(ref)))
     # print len(ref), len(donor)
     # print output_matrix
     # This is a very fast and memory-efficient way to allocate a matrix
@@ -162,22 +162,22 @@ def edit_distance_matrix(ref, donor):
     set the substitution cost to be -3
     set the indel cost to be -2    
     """
-    for i in range(len(donor)):
-        output_matrix[i, 0] = 0
-    for j in range(len(ref)):
-        output_matrix[0, j] = 0
-    for i in range(1, len(donor)):
-        for j in range(1, len(ref)):  # Big opportunities for improvement right here.
-            exist_value = output_matrix[i, j]
-            # figure out insertion or deletion             
-            deletion = output_matrix[i - 1, j] - 2
-            insertion = output_matrix[i, j - 1] - 2
-            identity = output_matrix[i - 1, j - 1] + 5 if ref[j] == donor[i] else -np.inf
-            substitution = output_matrix[i - 1, j - 1] - 3 if ref[j] != donor[i] else -np.inf
-            output_matrix[i, j] = max(insertion, deletion, identity, substitution, exist_value)
-    
-    # for detecting deletion
-    output_matrix_ = output_matrix
+#    for i in range(len(donor)):
+#        output_matrix[i, 0] = 0
+#    for j in range(len(ref)):
+#        output_matrix[0, j] = 0
+#    for i in range(1, len(donor)):
+#        for j in range(1, len(ref)):  # Big opportunities for improvement right here.
+#            exist_value = output_matrix[i, j]
+#            # figure out insertion or deletion             
+#            deletion = output_matrix[i - 1, j] - 2
+#            insertion = output_matrix[i, j - 1] - 2
+#            identity = output_matrix[i - 1, j - 1] + 5 if ref[j] == donor[i] else -np.inf
+#            substitution = output_matrix[i - 1, j - 1] - 3 if ref[j] != donor[i] else -np.inf
+#            output_matrix[i, j] = max(insertion, deletion, identity, substitution, exist_value)
+#    
+#    # for detecting deletion
+#    output_matrix_ = output_matrix
     
     output_matrix = np.zeros((len(donor), len(ref)))
     # print len(ref), len(donor)
@@ -202,7 +202,7 @@ def edit_distance_matrix(ref, donor):
             substitution = output_matrix[i - 1, j - 1] - 3 if ref[j] != donor[i] else -np.inf
             output_matrix[i, j] = max(insertion, deletion, identity, substitution, exist_value)
     
-    return output_matrix, output_matrix_
+    return output_matrix
 
 def identify_changes(ref, donor, offset):
     """
@@ -219,7 +219,7 @@ def identify_changes(ref, donor, offset):
     # print offset
     ref = '${}'.format(ref)
     donor = '${}'.format(donor)
-    edit_matrix = edit_distance_matrix(ref=ref, donor=donor)[0]
+    edit_matrix = edit_distance_matrix(ref=ref, donor=donor)
 #    print (edit_matrix)
 #    print(current_row, current_column)
     changes = []
@@ -297,80 +297,80 @@ def identify_changes(ref, donor, offset):
     changes = sorted(changes, key=lambda change: change[-1])
 #    print (str(changes))
     
-    edit_matrix = edit_distance_matrix(ref=ref, donor=donor)[1]
-    changes_ = []
-    current_row, current_column = np.unravel_index(edit_matrix.argmax(), edit_matrix.shape)
-    while (current_row > 0 or current_column > 0) and edit_matrix[current_row, current_column] != 0:
-#        print(current_row, current_column)
-        if current_row == 0:
-            pvs_row = -np.inf
-        else:
-            pvs_row = current_row - 1
-
-        if current_column == 0:
-            pvs_column = -np.inf
-        else:
-            pvs_column = current_column - 1
-
-        try:
-            insertion_dist = edit_matrix[pvs_row, current_column]
-        except IndexError:
-            insertion_dist = -np.inf
-
-        try:
-            deletion_dist = edit_matrix[current_row, pvs_column]
-        except IndexError:
-            deletion_dist = -np.inf
-
-        try:
-            if ref[current_column] == donor[current_row]:
-                identity_dist = edit_matrix[pvs_row, pvs_column]
-            else:
-                identity_dist = -np.inf
-            
-            if ref[current_column] != donor[current_row]:
-                substitution_dist = edit_matrix[pvs_row, pvs_column]
-            else:
-                substitution_dist = -np.inf
-                
-        except (TypeError, IndexError) as e:
-            identity_dist = -np.inf
-            substitution_dist = -np.inf
-
-        max_dist = max(insertion_dist, deletion_dist, identity_dist, substitution_dist)
-        # if identity_dist == 0: max_dist = 0
-        # deprecated: changed ref_index by remvoe -1
-        ref_index = current_column + offset 
-        if max_dist == identity_dist:
-            current_row = pvs_row
-            current_column = pvs_column
-        elif max_dist == substitution_dist:
-#            print('sub')
-#            surround = max(edit_matrix[current_row, pvs_column], edit_matrix[current_row, current_column+1], 
-#                           edit_matrix[current_row-1, current_column], edit_matrix[current_row-1, current_column])
-#            if edit_matrix[pvs_row, pvs_column] <= surround:
-            changes_.append(['SNP', ref[current_column], donor[current_row], ref_index - 1])
-            current_row = pvs_row
-            current_column = pvs_column
-        elif max_dist == insertion_dist:
-#            print("ins")
-            if len(changes_) > 0 and changes_[-1][0] == 'INS' and changes_[-1][-1] == ref_index:
-                changes_[-1][1] = donor[current_row-1] + changes_[-1][1]
-#                changes[-1][-1] -= 1
-            else:
-                changes_.append(['INS', donor[current_row-1], ref_index])
-            current_row = pvs_row
-        elif max_dist == deletion_dist:
-#            print('del')
-            if len(changes_) > 0 and changes_[-1][0] == 'DEL' and changes_[-1][-1] == ref_index:
-                changes_[-1] = ['DEL', ref[current_column] + changes_[-1][1], ref_index]
-#                changes[-1][-1] -= 1
-            else:
-                changes_.append(['DEL', ref[current_column], ref_index])
-            current_column = pvs_column
-        else:
-            raise ValueError
-    changes_ = sorted(changes_, key=lambda change_: change_[-1])
+#    edit_matrix = edit_distance_matrix(ref=ref, donor=donor)[1]
+#    changes_ = []
+#    current_row, current_column = edit_matrix.shape[0]-1, edit_matrix.shape[1]-1
+#    while (current_row > 0 or current_column > 0) and edit_matrix[current_row, current_column] != 0:
+##        print(current_row, current_column)
+#        if current_row == 0:
+#            pvs_row = -np.inf
+#        else:
+#            pvs_row = current_row - 1
+#
+#        if current_column == 0:
+#            pvs_column = -np.inf
+#        else:
+#            pvs_column = current_column - 1
+#
+#        try:
+#            insertion_dist = edit_matrix[pvs_row, current_column]
+#        except IndexError:
+#            insertion_dist = -np.inf
+#
+#        try:
+#            deletion_dist = edit_matrix[current_row, pvs_column]
+#        except IndexError:
+#            deletion_dist = -np.inf
+#
+#        try:
+#            if ref[current_column] == donor[current_row]:
+#                identity_dist = edit_matrix[pvs_row, pvs_column]
+#            else:
+#                identity_dist = -np.inf
+#            
+#            if ref[current_column] != donor[current_row]:
+#                substitution_dist = edit_matrix[pvs_row, pvs_column]
+#            else:
+#                substitution_dist = -np.inf
+#                
+#        except (TypeError, IndexError) as e:
+#            identity_dist = -np.inf
+#            substitution_dist = -np.inf
+#
+#        max_dist = max(insertion_dist, deletion_dist, identity_dist, substitution_dist)
+#        # if identity_dist == 0: max_dist = 0
+#        # deprecated: changed ref_index by remvoe -1
+#        ref_index = current_column + offset 
+#        if max_dist == identity_dist:
+#            current_row = pvs_row
+#            current_column = pvs_column
+#        elif max_dist == substitution_dist:
+##            print('sub')
+##            surround = max(edit_matrix[current_row, pvs_column], edit_matrix[current_row, current_column+1], 
+##                           edit_matrix[current_row-1, current_column], edit_matrix[current_row-1, current_column])
+##            if edit_matrix[pvs_row, pvs_column] <= surround:
+#            changes_.append(['SNP', ref[current_column], donor[current_row], ref_index - 1])
+#            current_row = pvs_row
+#            current_column = pvs_column
+#        elif max_dist == insertion_dist:
+##            print("ins")
+#            if len(changes_) > 0 and changes_[-1][0] == 'INS' and changes_[-1][-1] == ref_index:
+#                changes_[-1][1] = donor[current_row-1] + changes_[-1][1]
+##                changes[-1][-1] -= 1
+#            else:
+#                changes_.append(['INS', donor[current_row-1], ref_index])
+#            current_row = pvs_row
+#        elif max_dist == deletion_dist:
+##            print('del')
+#            if len(changes_) > 0 and changes_[-1][0] == 'DEL' and changes_[-1][-1] == ref_index:
+#                changes_[-1] = ['DEL', ref[current_column] + changes_[-1][1], ref_index]
+##                changes[-1][-1] -= 1
+#            else:
+#                changes_.append(['DEL', ref[current_column], ref_index])
+#            current_column = pvs_column
+#        else:
+#            raise ValueError
+#    changes_ = sorted(changes_, key=lambda change_: change_[-1])
     
 #    if (len(changes_) < len(changes)):
 #        print(changes_)
@@ -418,7 +418,7 @@ if __name__ == "__main__":
     identify_changes(ref='AAGCG', donor='AAGTTCG', offset=0)
     # ### /Testing Code
     #
-    genome_name = 'hw2undergrad_E_2'
+#    genome_name = 'hw2undergrad_E_2'
     genome_name = "practice_W_3"
     input_folder = '../data/{}'.format(genome_name) + '/'
     chr_name = '{}_chr_1'.format(genome_name)
