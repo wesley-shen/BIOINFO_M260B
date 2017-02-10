@@ -83,7 +83,7 @@ def align_to_donor(donor, read):
         best_read = read
         best_score = score
 
-    for shift_amount in range(-3, 0) and range(1, 4):  # This can be improved
+    for shift_amount in range(-60, 0) and range(1, 61):  # This can be improved
         if shift_amount > 0:
             shifted_read = ' ' * shift_amount + read
         elif shift_amount < 0:
@@ -99,7 +99,6 @@ def align_to_donor(donor, read):
             best_score = score
     return best_read, best_score
 
-
 def generate_donor(ref, aligned_reads):
     """
     Aligns the reads against *each other* to generate a hypothesized donor genome.
@@ -107,11 +106,15 @@ def generate_donor(ref, aligned_reads):
     :param aligned_reads: reads aligned to the genome (with pre-pended spaces to offset correctly)
     :return: hypothesized donor genome
     """
+#    print('ref:', ref)
+#    print('reads:', aligned_reads)
     cleaned_aligned_reads = [_.replace('.', ' ') for _ in aligned_reads]
     ## Start by appending spaces to the reads so they line up with the reference correctly.
     padded_reads = [aligned_read + ' ' * (len(ref) - len(aligned_read)) for aligned_read in cleaned_aligned_reads]
     consensus_string = consensus(ref, aligned_reads)
-
+    
+#    mismatches = [1 if consensus_string[i] != ' ' and ref[i] != ' ' and consensus_string[i] != ref[i] else 0 for i in range(len(ref))]
+    
     ## Seed the donor by choosing the read that best aligns to the reference.
     read_scores = [sum([1 if padded_read[i] == ref[i] and padded_read[i] != ' '
                         else 0 for i in range(len(padded_read))])
@@ -126,7 +129,7 @@ def generate_donor(ref, aligned_reads):
         un_donored_reads = []
         for padded_read in padded_reads:
             re_aligned_read, score = align_to_donor(donor_genome, padded_read)
-            if score < 10:  # If the alignment isn't good, throw the read back in the set of reads to be aligned.
+            if score < 60:  # If the alignment isn't good, throw the read back in the set of reads to be aligned.
                 un_donored_reads.append(padded_read)
             else:
                 donor_genome = ''.join([re_aligned_read[i] if donor_genome[i] == ' ' else donor_genome[i]
@@ -143,7 +146,6 @@ def generate_donor(ref, aligned_reads):
     donor_genome = ''.join([donor_genome[i] if donor_genome[i] != ' ' else consensus_string[i] for i
                             in range(len(donor_genome))])
     return donor_genome
-
 
 def edit_distance_matrix(ref, donor):
     """
@@ -169,8 +171,8 @@ def edit_distance_matrix(ref, donor):
         for i in range(1, len(ref)):  # Big opportunities for improvement right here.
             deletion = output_matrix[i - 1, j] + 1
             insertion = output_matrix[i, j - 1] + 1
-            identity = output_matrix[i - 1, j - 1] - 2 if ref[i] == donor[j] else np.inf
-            substitution = output_matrix[i - 1, j - 1] + 2 if ref[i] != donor[j] else np.inf
+            identity = output_matrix[i - 1, j - 1] if ref[i] == donor[j] else np.inf
+            substitution = output_matrix[i - 1, j - 1] + 1 if ref[i] != donor[j] else np.inf
             output_matrix[i, j] = min(insertion, deletion, identity, substitution)
     return output_matrix
 
@@ -237,6 +239,8 @@ def identify_changes(ref, donor, offset):
             current_column = pvs_column
         elif min_dist == substitution_dist:
             changes.append(['SNP', ref[current_row], donor[current_column], ref_index])
+            if (ref_index == 1039): print(edit_matrix)
+                
             current_row = pvs_row
             current_column = pvs_column
         elif min_dist == insertion_dist:
@@ -254,7 +258,10 @@ def identify_changes(ref, donor, offset):
         else:
             raise ValueError
     changes = sorted(changes, key=lambda change: change[-1])
-    print (str(changes))
+    SNP_num = [1 if len(changes) > 0 and change[0] == "SNP" else 0 for change in changes]
+    if (sum(SNP_num) >= 3):
+        changes = list(filter(lambda x: x[0] != 'SNP', changes))
+    print(changes)    
     return changes
 
 def consensus(ref, aligned_reads):
@@ -288,21 +295,22 @@ if __name__ == "__main__":
     identify_changes('PRETTY', 'PRTTEIN', offset=0)
     # ### Testing code for Smith-Waterman Algorithm
     #
-    # identify_changes(ref='ACACCC', donor='ATACCCGGG', offset=0)
-    # identify_changes(ref='ATACCCGGG', donor='ACACCC', offset=0)
-    # identify_changes(ref='ACACCC', donor='GGGATACCC', offset=0)
-    # identify_changes(ref='ACA', donor='AGA', offset=0)
-    # identify_changes(ref='ACA', donor='ACGTA', offset=0)
-    # identify_changes(ref='TTACCGTGCAAGCG', donor='GCACCCAAGTTCG', offset=0)
+    identify_changes(ref='ACACCC', donor='ATACCCGGG', offset=0)
+    identify_changes(ref='ATACCCGGG', donor='ACACCC', offset=0)
+    identify_changes(ref='ACACCC', donor='GGGATACCC', offset=0)
+    identify_changes(ref='ACA', donor='AGA', offset=0)
+    identify_changes(ref='ACA', donor='ACGTA', offset=0)
+    identify_changes(ref='TTACCGTGCAAGCG', donor='GCACCCAAGTTCG', offset=0)
     # ### /Testing Code
     #
     genome_name = 'hw2undergrad_E_2'
-#    input_folder = './PA2/{}'.format(genome_name)
-#    chr_name = '{}_chr_1'.format(genome_name)
-#    reads_fn_end = 'reads_{}.txt'.format(chr_name)
-#    reads_fn = join(input_folder, reads_fn_end)
-#    ref_fn_end = 'ref_{}.txt'.format(chr_name)
-#    ref_fn = join(input_folder, ref_fn_end)
+#    genome_name = 'practice_W_3'
+    input_folder = './PA2/{}'.format(genome_name)
+    chr_name = '{}_chr_1'.format(genome_name)
+    reads_fn_end = 'reads_{}.txt'.format(chr_name)
+    reads_fn = join(input_folder, reads_fn_end)
+    ref_fn_end = 'ref_{}.txt'.format(chr_name)
+    ref_fn = join(input_folder, ref_fn_end)
     input_folder = '../data/{}'.format(genome_name) + '/'
     chr_name = '{}_chr_1'.format(genome_name)
     reads_fn_end = 'reads_{}.txt'.format(chr_name)

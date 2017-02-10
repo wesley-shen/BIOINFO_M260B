@@ -125,13 +125,14 @@ def hashing_algorithm(paired_end_reads, genome_ht):
 
 if __name__ == "__main__":
     genome_name = 'hw2undergrad_E_2'
+#    genome_name = 'practice_W_3'
     input_folder = '../data/{}'.format(genome_name) + '/'
     chr_name = '{}_chr_1'.format(genome_name)
     reads_fn_end = 'reads_{}.txt'.format(chr_name)
     reads_fn = join(input_folder, reads_fn_end)
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
-    key_length = 5
+    key_length = 8
     start = time.clock()
     reads = read_reads(reads_fn)
     # If you want to speed it up, cut down the number of reads by
@@ -143,7 +144,7 @@ if __name__ == "__main__":
     # print genome_aligned_reads
     # print alignments
     output_str = pretty_print_aligned_reads_with_ref(genome_aligned_reads, alignments, ref)
-    output_fn = join(input_folder, 'aligned_{}.txt'.format(chr_name))
+    output_fn = join(input_folder, 'aligned_8_{}.txt'.format(chr_name))
     with(open(output_fn, 'w')) as output_file:
         output_file.write(output_str)
     print (output_str[:5000])
