@@ -37,6 +37,7 @@ def simple_de_bruijn(sequence_reads, k):
             de_bruijn_counter[pvs_kmer].update([next_kmer])
 
     # This line removes the nodes from the DeBruijn Graph that we have not seen enough.
+    # THE COVERAGE is 30x, so maybe at least 20 times not 2 times
     de_bruijn_graph = {key: {val for val in de_bruijn_counter[key] if de_bruijn_counter[key][val] > 1}
                        for key in de_bruijn_counter}
 
@@ -62,11 +63,13 @@ def de_bruijn_reassemble(de_bruijn_graph):
         # You may want to find a better start
         # position by looking at in and out-degrees,
         # but this will work okay.
+        # LOOK FOR nodes with more outgoing edges than incoming edges
         current_point = good_starts[0]
         assembled_string = current_point
         while True:
             try:
                 next_values = de_bruijn_graph[current_point]
+                # pop() might be too random. Choose the most possible one. 
                 next_edge = next_values.pop()
                 assembled_string += next_edge[-1]
                 de_bruijn_graph[current_point] = next_values
@@ -84,7 +87,7 @@ if __name__ == "__main__":
     reads = read_assembly_reads(reads_fn)
     db_graph = simple_de_bruijn(reads, 25)
     for k in db_graph.keys()[:40]:
-        print k, db_graph[k]
+        print (k, db_graph[k])
 
     output = de_bruijn_reassemble(db_graph)
     output_fn_end = 'assembled_{}.txt'.format(chr_name)
