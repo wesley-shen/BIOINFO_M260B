@@ -6,11 +6,13 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
-from BIOINFO_M260B.helpers import read_reads
+# from BIOINFO_M260B.helpers import read_reads
+from helpers import read_reads
 
 
 def read_assembly_reads(read_fn):
     reads = read_reads(read_fn)
+    # POTENTIAL
     output_reads = [_[0] for _ in reads]
     # Only taking one end of the read works okay, but
     # this is an obvious area for improvement.
@@ -38,7 +40,7 @@ def simple_de_bruijn(sequence_reads, k):
 
     # This line removes the nodes from the DeBruijn Graph that we have not seen enough.
     # THE COVERAGE is 30x, so maybe at least 20 times not 2 times
-    de_bruijn_graph = {key: {val for val in de_bruijn_counter[key] if de_bruijn_counter[key][val] > 1}
+    de_bruijn_graph = {key: {val for val in de_bruijn_counter[key] if de_bruijn_counter[key][val] > 20}
                        for key in de_bruijn_counter}
 
     # This line removes the empty nodes from the DeBruijn graph
@@ -82,11 +84,11 @@ def de_bruijn_reassemble(de_bruijn_graph):
 
 if __name__ == "__main__":
     chr_name = 'hw3all_A_3_chr_1'
-    input_folder = './{}'.format(chr_name)
+    input_folder = './{}/{}'.format("data",chr_name)
     reads_fn = join(input_folder, 'reads_{}.txt'.format(chr_name))
     reads = read_assembly_reads(reads_fn)
     db_graph = simple_de_bruijn(reads, 25)
-    for k in db_graph.keys()[:40]:
+    for k in list(db_graph.keys())[:40]:
         print (k, db_graph[k])
 
     output = de_bruijn_reassemble(db_graph)
