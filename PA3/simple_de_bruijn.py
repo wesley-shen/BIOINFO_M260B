@@ -9,7 +9,6 @@ sys.path.insert(0, os.path.abspath("../.."))
 # from BIOINFO_M260B.helpers import read_reads
 from helpers import read_reads
 
-
 def read_assembly_reads(read_fn):
     reads = read_reads(read_fn)
     # POTENTIAL
@@ -17,7 +16,6 @@ def read_assembly_reads(read_fn):
     # Only taking one end of the read works okay, but
     # this is an obvious area for improvement.
     return output_reads
-
 
 def simple_de_bruijn(sequence_reads, k):
     """
@@ -40,13 +38,13 @@ def simple_de_bruijn(sequence_reads, k):
 
     # This line removes the nodes from the DeBruijn Graph that we have not seen enough.
     # THE COVERAGE is 30x, so maybe at least 20 times not 2 times
-    de_bruijn_graph = {key: {val for val in de_bruijn_counter[key] if de_bruijn_counter[key][val] > 20}
+    de_bruijn_graph = {key: {val for val in de_bruijn_counter[key] if de_bruijn_counter[key][val] > 2}
                        for key in de_bruijn_counter}
 
     # This line removes the empty nodes from the DeBruijn graph
     de_bruijn_graph = {key: de_bruijn_graph[key] for key in de_bruijn_graph if de_bruijn_graph[key]}
+    # print(de_bruijn_graph.items())
     return de_bruijn_graph
-
 
 def de_bruijn_reassemble(de_bruijn_graph):
     """
@@ -59,11 +57,15 @@ def de_bruijn_reassemble(de_bruijn_graph):
     assembled_strings = []
     while True:
         n_values = sum([len(de_bruijn_graph[k]) for k in de_bruijn_graph])
+        print(n_values)
         if n_values == 0:
             break
+        # outgoing_degs = list(de_bruijn_graph.keys())
+        # incoming_degs = [_[1] for _ in de_bruijn_graph.items()]
         good_starts = [k for k in de_bruijn_graph if de_bruijn_graph[k]]
+        # good_starts = [k for k in de_bruijn_graph if de_bruijn_graph[k] and outgoing_degs.count(k)>incoming_degs.count(k)]
         # You may want to find a better start
-        # position by looking at in and out-degrees,
+        # position by looking at in and out-degrees
         # but this will work okay.
         # LOOK FOR nodes with more outgoing edges than incoming edges
         current_point = good_starts[0]
@@ -81,14 +83,15 @@ def de_bruijn_reassemble(de_bruijn_graph):
                 break
     return assembled_strings
 
-
 if __name__ == "__main__":
-    chr_name = 'hw3all_A_3_chr_1'
+    # chr_name = 'practice_A_2'
+    chr_name = 'hw3all_A_3'
     input_folder = './{}/{}'.format("data",chr_name)
-    reads_fn = join(input_folder, 'reads_{}.txt'.format(chr_name))
+    reads_fn = join(input_folder, 'reads_{}_chr_1.txt'.format(chr_name))
+    # reads_fn = join(input_folder, 'reads_{}.txt'.format(chr_name))
     reads = read_assembly_reads(reads_fn)
     db_graph = simple_de_bruijn(reads, 25)
-    for k in list(db_graph.keys())[:40]:
+    for k in list(db_graph.keys()):
         print (k, db_graph[k])
 
     output = de_bruijn_reassemble(db_graph)
