@@ -84,7 +84,7 @@ if __name__ == "__main__":
     reads = read_assembly_reads(reads_fn)
     db_graph = simple_de_bruijn(reads, 25)
     for k in db_graph.keys()[:40]:
-        print k, db_graph[k]
+        print (k, db_graph[k])
 
     output = de_bruijn_reassemble(db_graph)
     output_fn_end = 'assembled_{}.txt'.format(chr_name)
