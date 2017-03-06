@@ -107,7 +107,7 @@ if __name__ == "__main__":
 def read_assembly_reads(read_fn):
     reads = read_reads(read_fn)
     output_reads = [_[0] for _ in reads] 
-    output_reads += [_[1] for _ in reads]
+    output_reads += [_[1][::-1] for _ in reads]
     # Only taking one end of the read works okay, but
     # this is an obvious area for improvement.
     return output_reads
