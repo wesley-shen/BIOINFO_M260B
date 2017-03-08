@@ -36,7 +36,7 @@ def read_reference(ref_fn):
                 count.update(out_refs[j][i])
             output_reference += count.most_common(1)[0][0]
     print(snp_counter, snp_locations)
-    return output_reference, snp_counter, snp_locations
+    return output_reference, snp_counter, snp_locations, out_refs
     
     
 def pretty_print_aligned_reads_with_ref(genome_oriented_reads, read_alignments, ref, read_length=50,
@@ -297,43 +297,58 @@ def generate_snp_frequencies(aligned_fn, snp_locs):
     return snp_freq
     
     
-def generate_test_SNPs(snp_freqs, n_strains=4, coverage=100, set_seed=False, n_snps=7):
+def generate_test_SNPs(ref, strains, snp_locs, snp_freqs, n_strains=4, coverage=100, set_seed=False, n_snps=7):
     ## We're going to assume there is overlap between
     ## Strains for each SNP.
     
     if set_seed: np.random.seed(96000)
     
 #    assert sum(snp_freqs) == 1
+    strain_matrix = []
+    for i in strains:
+        strain_snp = []
+        for j in snp_locs:
+            if (ref[j] == i[j]):
+                strain_snp.append(0)
+            else:
+                strain_snp.append(1)
+        strain_matrix.append(strain_snp)
     
-    powerset_iterable = itertools.chain.from_iterable(itertools.combinations(range(n_strains), r)
-                                             for r in range(2, n_strains))
+    strain_matrix = np.array(strain_matrix)
+    print(strain_matrix)
+    strain_freqs = np.linalg.lstsq(strain_matrix.T, snp_freqs)
+    return strain_freqs
     
-    frozen_powerset = [index_tuple for index_tuple in powerset_iterable]
-    
-    while True:
-        these_indices = np.random.choice(frozen_powerset, n_snps)
-        output_strains = [[] for i in range(n_strains)]
-        for index_list in these_indices:
-            for i in range(len(output_strains)):
-                if i in index_list:
-                    output_strains[i].append(1)
-                else:
-                    output_strains[i].append(0)
-                    
-        output_strains = [tuple(strain) for strain in output_strains]
-        n_unique_strains = len(set(output_strains))
-        # test if it satisfies a few conditions 
-        # if it does, we return
-        # otherwise; loop back and try again
-        strain_matrix = np.array(output_strains)
-        snp_freqs = np.array(snp_freqs)
+#    powerset_iterable = itertools.chain.from_iterable(itertools.combinations(range(n_strains), r)
+#                                             for r in range(2, n_strains))
+#    
+#    frozen_powerset = [index_tuple for index_tuple in powerset_iterable]
+#    
+#    while True:
+#        these_indices = np.random.choice(frozen_powerset, n_snps)
+#        output_strains = [[] for i in range(n_strains)]
+#        for index_list in these_indices:
+#            for i in range(len(output_strains)):
+#                if i in index_list:
+#                    output_strains[i].append(1)
+#                else:
+#                    output_strains[i].append(0)
+#                    
+#        output_strains = [tuple(strain) for strain in output_strains]
+#        n_unique_strains = len(set(output_strains))
+#        # test if it satisfies a few conditions 
+#        # if it does, we return
+#        # otherwise; loop back and try again
+#        strain_matrix = np.array(output_strains)
+#        snp_freqs = np.array(snp_freqs)
 #        print(snp_freqs)
-        strain_freqs = np.linalg.lstsq(strain_matrix.T, snp_freqs)
-        bools = strain_freqs[0] > 0
-#        print(snp_freqs[0])
-        if n_unique_strains == n_strains and bools.all() and abs(sum(strain_freqs[0])-1) < 0.01 \
-            and distance.euclidean(strain_matrix.T.dot(strain_freqs[0]), snp_freqs) < 0.02:
-                return strain_freqs[0]
+        
+#        strain_freqs = np.linalg.lstsq(strain_matrix.T, snp_freqs)
+#        bools = strain_freqs[0] > 0
+##        print(snp_freqs[0])
+#        if n_unique_strains == n_strains and bools.all() and abs(sum(strain_freqs[0])-1) < 0.01 \
+#            and distance.euclidean(strain_matrix.T.dot(strain_freqs[0]), snp_freqs) < 0.02:
+#                return strain_freqs[0]
 #        if n_unique_strains == n_strains:
 #            break
 #     for freq, strain in zip(snp_freqs, output_strains):
@@ -395,7 +410,7 @@ if __name__ == "__main__":
     # changing the line to reads = read_reads(reads_fn)[:<x>] where <x>
     # is the number of reads you want to work with.
     genome_hash_table = build_hash_and_pickle(ref_fn, key_length)
-    ref, snp_counts, snp_locs = read_reference(ref_fn)
+    ref, snp_counts, snp_locs, strains = read_reference(ref_fn)
     genome_aligned_reads, alignments = hashing_algorithm(reads, genome_hash_table)
     # print genome_aligned_reads
     # print alignments
@@ -405,9 +420,8 @@ if __name__ == "__main__":
         output_file.write(output_str)
 #    print (output_str[:5000])
     snq_freq = generate_snp_frequencies(output_fn, snp_locs)
-    strain_freq = generate_test_SNPs(snp_freqs = snq_freq, coverage=100, n_snps=snp_counts)
+    strain_freq = generate_test_SNPs(ref, strains, snp_locs, snp_freqs = snq_freq, n_snps=snp_counts)
     print(strain_freq)
-    
     
 #    input_snp_counts, input_strains = generate_test_SNPs(snp_freqs = snq_freq, coverage=100, n_snps=snp_counts)
 #    for k, v in input_snp_counts.items(): print (k, v[:10])
